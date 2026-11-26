@@ -400,9 +400,9 @@ const ACARA_LIST = [
 // DAFTAR TIM ASISTEN LABORATORIUM (PLACEHOLDER)
 // Nomor WA diawali 62 (tanpa tanda + atau 0 di depan), contoh: "6281234567890"
 const ASISTEN_LIST = [
-  { nama: "Asisten 1", peran: "Koordinator Asisten", wa: "6281280970439", ig: "simkom.upnyk", foto: "assets/asisten-1.jpg" },
-  { nama: "Asisten 2", peran: "Asisten Perencanaan", wa: "6281280970439", ig: "simkom.upnyk", foto: "assets/asisten-2.jpg" },
-  { nama: "Asisten 3", peran: "Asisten Pemodelan", wa: "6281280970439", ig: "simkom.upnyk", foto: "assets/asisten-3.jpg" },
-  { nama: "Asisten 4", peran: "Asisten Desain Pit", wa: "6281280970439", ig: "simkom.upnyk", foto: "assets/asisten-4.jpg" },
-  { nama: "Asisten 5", peran: "Asisten Scheduling", wa: "6281280970439", ig: "simkom.upnyk", foto: "assets/asisten-5.jpg" }
+  { nama: "Asisten 1", peran: "Koordinator Asisten", wa: "6281280970439", ig: "zzethaf_", foto: "assets/asisten-1.jpg" },
+  { nama: "Asisten 2", peran: "Asisten Perencanaan", wa: "6281280970439", ig: "zzethaf_", foto: "assets/asisten-2.jpg" },
+  { nama: "Asisten 3", peran: "Asisten Pemodelan", wa: "6281280970439", ig: "zzethaf_", foto: "assets/asisten-3.jpg" },
+  { nama: "Asisten 4", peran: "Asisten Desain Pit", wa: "6281280970439", ig: "zzethaf_", foto: "assets/asisten-4.jpg" },
+  { nama: "Asisten 5", peran: "Asisten Scheduling", wa: "6281280970439", ig: "zzethaf_", foto: "assets/asisten-5.jpg" }
 ];

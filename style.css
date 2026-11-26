@@ -478,10 +478,98 @@ body {
 }
 
 /* =========================================================================
+   BAGIAN HORIZONTAL DENGAN LATAR FOTO PERTAMBANGAN BERBEDA TIAP SEKSI
+   Menggunakan background-image statis (60fps, tanpa parallax lag)
+   ========================================================================= */
+.mine-band {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-top: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.mine-band-hero {
+  border-top: none;
+  margin-top: -78px;
+  padding-top: 112px;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(248, 243, 232, 0.30) 0%,
+      rgba(26, 20, 15, 0.24) 55%,
+      rgba(18, 14, 10, 0.42) 100%
+    ),
+    url("assets/bg-hero-mine.jpg");
+}
+
+.mine-band-dokumen {
+  padding-top: 22px;
+  padding-bottom: 68px;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(250, 246, 236, 0.68) 0%,
+      rgba(248, 242, 230, 0.56) 55%,
+      rgba(244, 237, 224, 0.66) 100%
+    ),
+    url("assets/bg-dokumen-mine.jpg");
+}
+
+.mine-band-acara {
+  padding: 68px 0;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(246, 239, 226, 0.46) 0%,
+      rgba(36, 28, 20, 0.26) 55%,
+      rgba(24, 19, 14, 0.42) 100%
+    ),
+    url("assets/bg-acara-mine.jpg");
+}
+
+.mine-band-panduan {
+  padding: 72px 0;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(248, 243, 232, 0.40) 0%,
+      rgba(244, 236, 220, 0.36) 50%,
+      rgba(248, 242, 230, 0.46) 100%
+    ),
+    url("assets/bg-panduan-mine.jpg");
+}
+
+.mine-band-asisten {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(250, 245, 235, 0.68) 0%,
+      rgba(246, 238, 224, 0.46) 52%,
+      rgba(20, 16, 12, 0.44) 100%
+    ),
+    url("assets/bg-asisten-mine.jpg");
+}
+
+/* Latar foto aerial topografi tambang untuk halaman ruang acara (acara.html) */
+.page-acara-room .ambient-backdrop {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(250, 246, 236, 0.72) 0%,
+      rgba(245, 238, 224, 0.64) 55%,
+      rgba(238, 230, 214, 0.72) 100%
+    ),
+    url("assets/bg-panduan-mine.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+/* =========================================================================
    HERO BANNER & MARQUEE
    ========================================================================= */
 .hero-section {
-  padding-top: 34px;
+  padding-top: 112px;
 }
 
 .hero-banner {
@@ -635,7 +723,7 @@ body {
 }
 
 .intro-block {
-  padding: 52px 0 24px;
+  padding: 28px 0 38px;
   text-align: center;
   max-width: 720px;
 }

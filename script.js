@@ -246,7 +246,7 @@ function renderAsistenGrid() {
         <div class="asisten-menu" role="menu">
           <span class="asisten-menu-title">HUBUNGI ${asisten.nama.toUpperCase()}</span>
           <a
-            href="https://wa.me/${asisten.wa}"
+            href="https://api.whatsapp.com/send/?phone=${asisten.wa}&text&type=phone_number&app_absent=0"
             target="_blank"
             rel="noopener noreferrer"
             class="asisten-contact-link link-wa"

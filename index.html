@@ -89,9 +89,9 @@
 
   <main id="top">
     <!-- =========================================================
-         3. HERO BANNER & MARQUEE
+         3. HERO BANNER & MARQUEE (BAGIAN HORIZONTAL 1: OPEN-PIT SUNRISE)
          ========================================================= -->
-    <section class="hero-section">
+    <section class="hero-section mine-band mine-band-hero">
       <div class="container">
         <div class="hero-banner lg-panel lg-dark">
           <div class="hero-banner-content">
@@ -158,7 +158,13 @@
           </div>
         </div>
       </div>
+    </section>
 
+    <!-- =========================================================
+         4. SALAM PEMBUKA & DOKUMEN UMUM (BAGIAN HORIZONTAL 2: MEJA TEKNIK & PETA)
+         Cara edit: ganti href="https://drive.google.com/..." dengan link folder Drive asli
+         ========================================================= -->
+    <section id="dokumen-umum" class="section mine-band mine-band-dokumen">
       <!-- Salam Pembuka dengan Efek Mengetik -->
       <div class="container intro-block reveal">
         <h2 class="typed-heading">
@@ -169,13 +175,7 @@
           Tambang dikumpulkan di satu halaman ini agar mudah diakses.
         </p>
       </div>
-    </section>
 
-    <!-- =========================================================
-         4. DOKUMEN UMUM (LINK GOOGLE DRIVE)
-         Cara edit: ganti href="https://drive.google.com/..." dengan link folder Drive asli
-         ========================================================= -->
-    <section id="dokumen-umum" class="section">
       <div class="container">
         <div class="section-header reveal">
           <div>
@@ -213,10 +213,10 @@
     </section>
 
     <!-- =========================================================
-         5. ACARA PRAKTIKUM (GAYA STICKY SPLIT ALA PPA)
+         5. ACARA PRAKTIKUM (BAGIAN HORIZONTAL 3: HAUL TRUCK & EXCAVATOR)
          Catatan: Daftar acara & sandi diedit pada file data.js (ACARA_LIST)
          ========================================================= -->
-    <section id="acara-showcase" class="section section-alt">
+    <section id="acara-showcase" class="section mine-band mine-band-acara">
       <div class="container">
         <div class="acara-split">
           <!-- Kolom Kiri (Sticky — tetap diam saat bagian kanan digulir) -->
@@ -261,9 +261,9 @@
     </section>
 
     <!-- =========================================================
-         6. STUDY CASE & BUKU PANDUAN
+         6. STUDY CASE & BUKU PANDUAN (BAGIAN HORIZONTAL 4: AERIAL PIT CONTOUR)
          ========================================================= -->
-    <section id="buku-panduan" class="section">
+    <section id="buku-panduan" class="section mine-band mine-band-panduan">
       <div class="container highlight-stack">
         <!-- Study Case -->
         <a
@@ -304,49 +304,51 @@
     </section>
 
     <!-- =========================================================
-         7. TIM ASISTEN (KLIK KARTU UNTUK WHATSAPP & INSTAGRAM)
-         Catatan: Edit daftar asisten di script.js (bagian ASISTEN_LIST)
+         7. TIM ASISTEN & FOOTER (BAGIAN HORIZONTAL 5: PANORAMA TAMBANG SENJA)
+         Catatan: Edit daftar asisten di data.js (bagian ASISTEN_LIST)
          ========================================================= -->
-    <section id="tim-asisten" class="section section-alt">
-      <div class="container">
-        <div class="section-header reveal">
-          <div>
-            <span class="section-kicker">BUTUH BANTUAN ATAU ASISTENSI?</span>
-            <h2 class="section-title">Tim Asisten Laboratorium</h2>
-            <p class="section-subtitle">
-              Geser ke kanan/kiri untuk melihat seluruh asisten, lalu klik kartu untuk menghubungi via WhatsApp atau Instagram.
-            </p>
+    <div class="mine-band mine-band-asisten">
+      <section id="tim-asisten" class="section">
+        <div class="container">
+          <div class="section-header reveal">
+            <div>
+              <span class="section-kicker">BUTUH BANTUAN ATAU ASISTENSI?</span>
+              <h2 class="section-title">Tim Asisten Laboratorium</h2>
+              <p class="section-subtitle">
+                Geser ke kanan/kiri untuk melihat seluruh asisten, lalu klik kartu untuk menghubungi via WhatsApp atau Instagram.
+              </p>
+            </div>
+            <div class="asisten-header-controls">
+              <button id="asisten-prev" class="asisten-arrow lg-pill" type="button" aria-label="Geser ke kiri">&lsaquo;</button>
+              <button id="asisten-next" class="asisten-arrow lg-pill" type="button" aria-label="Geser ke kanan">&rsaquo;</button>
+              <span class="section-badge badge-accent">HUBUNGI</span>
+            </div>
           </div>
-          <div class="asisten-header-controls">
-            <button id="asisten-prev" class="asisten-arrow lg-pill" type="button" aria-label="Geser ke kiri">&lsaquo;</button>
-            <button id="asisten-next" class="asisten-arrow lg-pill" type="button" aria-label="Geser ke kanan">&rsaquo;</button>
-            <span class="section-badge badge-accent">HUBUNGI</span>
+
+          <!-- Daftar asisten dirender otomatis oleh script.js dalam baris geser horizontal -->
+          <div id="asisten-grid" class="asisten-grid" aria-label="Daftar Tim Asisten"></div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           8. FOOTER
+           ========================================================= -->
+      <footer class="site-footer">
+        <div class="container">
+          <div class="footer-inner lg-panel lg-dark">
+            <div class="footer-brand">
+              <img src="assets/logo-swoosh.png" alt="Logo Lab" class="footer-logo" />
+              <div>
+                <strong>Laboratorium Simulasi dan Komputasi Tambang</strong>
+                <p>Universitas Pembangunan Nasional Yogyakarta &mdash; Praktikum Perencanaan Tambang</p>
+              </div>
+            </div>
+            <span class="footer-note">&copy; <span id="year-now"></span> Lab Simkom UPNYK</span>
           </div>
         </div>
-
-        <!-- Daftar asisten dirender otomatis oleh script.js dalam baris geser horizontal -->
-        <div id="asisten-grid" class="asisten-grid" aria-label="Daftar Tim Asisten"></div>
-      </div>
-    </section>
-  </main>
-
-  <!-- =========================================================
-       8. FOOTER
-       ========================================================= -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-inner lg-panel lg-dark">
-        <div class="footer-brand">
-          <img src="assets/logo-swoosh.png" alt="Logo Lab" class="footer-logo" />
-          <div>
-            <strong>Laboratorium Simulasi dan Komputasi Tambang</strong>
-            <p>Universitas Pembangunan Nasional Yogyakarta &mdash; Praktikum Perencanaan Tambang</p>
-          </div>
-        </div>
-        <span class="footer-note">&copy; <span id="year-now"></span> Lab Simkom UPNYK</span>
-      </div>
+      </footer>
     </div>
-  </footer>
+  </main>
 
   <script src="data.js"></script>
   <script src="script.js"></script>

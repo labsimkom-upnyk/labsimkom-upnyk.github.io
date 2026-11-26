@@ -179,36 +179,118 @@ function getInitials(name) {
 
 function renderAcaraList() {
   const container = document.getElementById("acara-list");
+  const previewStage = document.getElementById("acara-preview-stage");
   if (!container || typeof ACARA_LIST === "undefined") return;
 
+  // 1. Render daftar vertikal acara 01–08 pada kolom kanan
   container.innerHTML = ACARA_LIST.map((item, index) => {
-    const isReversed = index % 2 === 1 ? "is-reversed" : "";
     const roomUrl = `acara.html?id=${encodeURIComponent(item.nomor)}`;
-    const visualContent = item.foto
-      ? `<img src="${item.foto}" alt="Acara ${item.nomor}: ${item.judul}" />`
-      : `<div class="acara-placeholder-graphic">
-           <div>
-             <span>ACARA ${item.nomor}</span>
-             <small>Klik untuk masuk ruang acara</small>
-           </div>
-         </div>`;
+    const activeClass = index === 0 ? "is-active" : "";
 
     return `
-      <article class="acara-item ${isReversed} reveal">
-        <a href="${roomUrl}" class="acara-visual">
-          ${visualContent}
-        </a>
-        <div class="acara-body">
-          <span class="acara-body-kicker">ACARA ${item.nomor}</span>
+      <a href="${roomUrl}" class="acara-row ${activeClass}" data-acara-index="${index}">
+        <span class="acara-row-num">${item.nomor}</span>
+        <div class="acara-row-content">
           <h3>${item.judul}</h3>
           <p>${item.deskripsi}</p>
-          <a href="${roomUrl}" class="acara-drive-btn">
-            Masuk Ruang Acara &rarr;
-          </a>
         </div>
-      </article>
+        <span class="acara-row-badge" aria-hidden="true">&rarr;</span>
+      </a>
     `;
   }).join("");
+
+  // 2. Render seluruh slide pratinjau pada kolom kiri sticky (cross-fade halus saat scroll)
+  if (previewStage) {
+    previewStage.innerHTML = ACARA_LIST.map((item, index) => {
+      const activeClass = index === 0 ? "is-active" : "";
+      const inner = item.foto
+        ? `<img src="${item.foto}" alt="Acara ${item.nomor}: ${item.judul}" />`
+        : `<div class="acara-preview-fallback">
+             <span class="acara-preview-fallback-num">ACARA ${item.nomor}</span>
+             <strong class="acara-preview-fallback-title">${item.judul}</strong>
+           </div>`;
+      return `<div class="acara-preview-slide ${activeClass}" data-preview-index="${index}">${inner}</div>`;
+    }).join("");
+  }
+
+  initAcaraStickySync();
+}
+
+/**
+ * Sinkronisasi scroll & hover bergaya PT Putra Perkasa Abadi:
+ * Saat kolom kanan digulir, baris yang berada di titik fokus otomatis aktif
+ * dan pratinjau + tombol CTA pada kolom kiri ikut berpindah mulus.
+ */
+function initAcaraStickySync() {
+  const rows = Array.from(document.querySelectorAll(".acara-row"));
+  if (!rows.length || typeof ACARA_LIST === "undefined") return;
+
+  const slides = Array.from(document.querySelectorAll(".acara-preview-slide"));
+  const ctaLink = document.getElementById("acara-active-cta");
+  const ctaText = document.getElementById("acara-active-cta-text");
+  const previewLink = document.getElementById("acara-preview-link");
+  const counterEl = document.getElementById("acara-preview-counter");
+  const progressFill = document.getElementById("acara-preview-progress-fill");
+  const total = ACARA_LIST.length;
+  let activeIndex = 0;
+
+  function setActiveAcara(index) {
+    if (index < 0 || index >= total) return;
+    activeIndex = index;
+    const acara = ACARA_LIST[index];
+    const roomUrl = `acara.html?id=${encodeURIComponent(acara.nomor)}`;
+
+    rows.forEach((row, i) => row.classList.toggle("is-active", i === index));
+    slides.forEach((slide, i) => slide.classList.toggle("is-active", i === index));
+
+    if (ctaLink) ctaLink.setAttribute("href", roomUrl);
+    if (ctaText) ctaText.textContent = `MASUK ACARA ${acara.nomor}`;
+    if (previewLink) previewLink.setAttribute("href", roomUrl);
+    if (counterEl) counterEl.textContent = `${acara.nomor} / ${String(total).padStart(2, "0")}`;
+    if (progressFill) progressFill.style.width = `${((index + 1) / total) * 100}%`;
+  }
+
+  // Hover langsung pada salah satu baris juga memindahkan pratinjau kiri
+  rows.forEach((row, idx) => {
+    row.addEventListener("mouseenter", () => setActiveAcara(idx));
+    row.addEventListener("focus", () => setActiveAcara(idx));
+  });
+
+  // Hitung baris yang paling dekat dengan garis fokus (~38% dari atas layar) saat halaman digulir
+  let rafPending = false;
+  function syncOnScroll() {
+    rafPending = false;
+    const focusY = window.innerHeight * 0.38;
+    let closestIdx = activeIndex;
+    let closestDist = Infinity;
+
+    rows.forEach((row, idx) => {
+      const rect = row.getBoundingClientRect();
+      const center = rect.top + rect.height * 0.5;
+      const dist = Math.abs(center - focusY);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closestIdx = idx;
+      }
+    });
+
+    if (closestIdx !== activeIndex) {
+      setActiveAcara(closestIdx);
+    }
+  }
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!rafPending) {
+        rafPending = true;
+        requestAnimationFrame(syncOnScroll);
+      }
+    },
+    { passive: true }
+  );
+
+  setActiveAcara(0);
 }
 
 function renderAsistenGrid() {

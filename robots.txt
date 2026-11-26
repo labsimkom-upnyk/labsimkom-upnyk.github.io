@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lab-simkom-upnyk.netlify.app/sitemap.xml
+Sitemap: https://labsimkom-upnyk.github.io/sitemap.xml

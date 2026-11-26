@@ -47,7 +47,7 @@ body {
   color: var(--text);
   background-color: var(--bg);
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: clip;
   position: relative;
 }
 
@@ -871,177 +871,384 @@ body {
 }
 
 /* =========================================================================
-   ACARA SHOWCASE (LIQUID GLASS + KILAU PINGGIR + BLUR TIPIS SAAT HOVER)
+   ACARA SHOWCASE (GAYA STICKY SPLIT ALA PPA — KIRI DIAM, KANAN BERGULIR)
    ========================================================================= */
-.acara-list {
+.acara-split {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.44fr) 0.56fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* Kolom Kiri (Sticky mengikuti scroll sampai acara terakhir) */
+.acara-sticky-col {
+  position: sticky;
+  top: 84px;
+  align-self: start;
+}
+
+.acara-sticky-card {
+  color: #ffffff;
+  padding: clamp(20px, 2.4vh, 26px) clamp(22px, 2.6vw, 30px);
+  max-height: calc(100vh - 102px);
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  overflow: hidden;
 }
 
-.acara-item {
-  --mx: 50%;
-  --my: 50%;
-  --lg-light: 0;
-  position: relative;
-  display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 26px;
+.acara-sticky-top {
+  display: flex;
   align-items: center;
-  border-radius: var(--lg-radius);
-  padding: 22px;
-  isolation: isolate;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
-/* Permukaan Liquid Glass kotak luar acara (terpisah agar dapat diberi blur tipis tanpa memblur kotak ACARA XX) */
-.acara-item::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  border-radius: var(--lg-radius);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.42) 0%,
-    rgba(255, 255, 255, 0.14) 48%,
-    rgba(255, 248, 228, 0.26) 100%
-  );
-  backdrop-filter: url(#ios-liquid-glass) saturate(var(--lg-saturate));
-  -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(var(--lg-saturate));
-  border: 1px solid rgba(255, 255, 255, 0.58);
-  box-shadow:
-    0 14px 34px -6px rgba(20, 16, 12, 0.18),
-    0 4px 18px 2px rgba(20, 16, 12, 0.08),
-    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.85),
-    inset 0 -1.5px 3px rgba(255, 222, 130, 0.26),
-    inset 1.5px 0 3px rgba(255, 206, 118, 0.20),
-    inset -1.5px 0 3px rgba(165, 222, 255, 0.20),
-    inset 0 0 22px rgba(255, 255, 255, 0.22);
-  transition: filter 0.35s ease, background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+.acara-sticky-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--gold-bright);
+  box-shadow: 0 0 12px rgba(255, 208, 0, 0.75);
 }
 
-/* Pencaran cahaya halus & lebar yang mengikuti kursor pada kartu acara */
-.acara-item::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  border-radius: var(--lg-radius);
-  pointer-events: none;
-  background: radial-gradient(
-    360px circle at var(--mx) var(--my),
-    rgba(255, 255, 255, 0.18) 0%,
-    rgba(255, 250, 236, 0.09) 38%,
-    rgba(255, 246, 220, 0.03) 64%,
-    transparent 85%
-  );
-  opacity: var(--lg-light);
-  transition: opacity 0.35s ease;
+.acara-sticky-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 700;
 }
 
-.acara-item:hover::before {
-  border-color: rgba(255, 255, 255, 0.88);
-  box-shadow:
-    0 18px 40px -8px rgba(20, 16, 12, 0.24),
-    inset 0 2px 2px rgba(255, 255, 255, 0.94),
-    inset 0 -2px 3px rgba(255, 208, 0, 0.34),
-    inset 0 0 26px rgba(255, 255, 255, 0.28);
+.acara-sticky-title {
+  margin: 0 0 10px;
+  font-size: clamp(1.65rem, 2.7vw, 2.3rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: #ffffff;
 }
 
-/* Efek blur tipis pada kotak kaca luar & teks samping saat kursor masuk ke kotak visual ACARA */
-.acara-item:has(.acara-visual:hover) {
-  z-index: 5;
+.acara-sticky-title span {
+  display: block;
+  background: linear-gradient(90deg, var(--gold-bright), var(--amber));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.acara-item:has(.acara-visual:hover)::before {
-  background: rgba(255, 255, 255, 0.42);
-  filter: blur(2.2px);
-  border-color: rgba(255, 208, 0, 0.48);
-  box-shadow: 0 16px 38px rgba(26, 22, 19, 0.14);
+.acara-sticky-desc {
+  margin: 0 0 16px;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.86rem;
+  line-height: 1.5;
 }
 
-.acara-item.is-reversed .acara-visual {
-  order: 2;
+/* Tombol CTA ala PPA (kotak panah aksen + label kapital) */
+.acara-sticky-cta {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 12px;
+  text-decoration: none;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 5px 16px 5px 5px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 232, 165, 0.24);
+  margin-bottom: 16px;
+  transition: background 0.28s ease, border-color 0.28s ease, transform 0.28s ease;
 }
 
-.acara-visual {
+.acara-cta-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, #ffe047, var(--amber));
+  color: var(--charcoal);
+  display: grid;
+  place-items: center;
+  font-size: 0.95rem;
+  font-weight: 800;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.acara-sticky-cta:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 208, 0, 0.55);
+  transform: translateY(-2px);
+}
+
+.acara-sticky-cta:hover .acara-cta-icon {
+  transform: translateX(3px);
+}
+
+/* Pratinjau visual dinamis di bawah kolom kiri yang berganti halus saat scroll */
+.acara-preview-box {
   display: block;
   text-decoration: none;
-  border-radius: 22px;
+  border-radius: 16px;
   overflow: hidden;
-  background: rgba(34, 28, 22, 0.88);
-  aspect-ratio: 16 / 10;
-  position: relative;
-  z-index: 2;
-  isolation: isolate;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow:
-    0 10px 24px rgba(18, 14, 10, 0.24),
-    inset 0 1px 1px rgba(255, 255, 255, 0.32);
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
-  will-change: transform;
+  border: 1px solid rgba(255, 232, 165, 0.24);
+  background: rgba(16, 13, 10, 0.72);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.32);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
 }
 
-/* Garis diagonal bercahaya yang menyapu dari kiri kotak ACARA saat hover */
-.acara-visual::after {
-  content: "";
+.acara-preview-box:hover {
+  transform: scale(1.02);
+  border-color: rgba(255, 208, 0, 0.62);
+}
+
+.acara-preview-stage {
+  position: relative;
+  aspect-ratio: 16 / 7;
+  max-height: 145px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1b1612 0%, #34281b 100%);
+}
+
+@media (max-height: 720px) and (min-width: 861px) {
+  .acara-sticky-card {
+    padding: 18px 22px;
+  }
+  .acara-sticky-title {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+  }
+  .acara-sticky-desc {
+    font-size: 0.82rem;
+    margin-bottom: 12px;
+  }
+  .acara-sticky-cta {
+    margin-bottom: 12px;
+  }
+  .acara-preview-stage {
+    max-height: 112px;
+  }
+}
+
+.acara-preview-slide {
   position: absolute;
-  top: -10%;
-  left: -75%;
-  width: 55%;
-  height: 120%;
-  z-index: 3;
-  pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.08) 30%,
-    rgba(255, 255, 255, 0.32) 50%,
-    rgba(255, 255, 255, 0.08) 70%,
-    transparent 100%
-  );
-  transform: translateX(0) skewX(-22deg);
+  inset: 0;
   opacity: 0;
+  transform: scale(1.06) translateY(8px);
+  transition:
+    opacity 0.48s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.56s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
 }
 
-.acara-visual:hover {
-  transform: scale(1.045);
-  box-shadow:
-    0 18px 38px rgba(26, 22, 19, 0.30),
-    inset 0 1px 1px rgba(255, 255, 255, 0.36);
+.acara-preview-slide.is-active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
 }
 
-.acara-visual:hover::after {
-  animation: acara-diagonal-sheen 1.55s cubic-bezier(0.35, 0, 0.25, 1) forwards;
-}
-
-@keyframes acara-diagonal-sheen {
-  0% {
-    transform: translateX(0) skewX(-22deg);
-    opacity: 0;
-  }
-  15% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(340%) skewX(-22deg);
-    opacity: 0;
-  }
-}
-
-.acara-visual img {
-  position: relative;
-  z-index: 1;
+.acara-preview-slide img {
   width: 100%;
   height: 100%;
-  border-radius: 21px;
   object-fit: cover;
   display: block;
 }
 
+.acara-preview-fallback {
+  width: 100%;
+  height: 100%;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  background:
+    radial-gradient(circle at 86% 18%, rgba(255, 208, 0, 0.24) 0%, transparent 52%),
+    linear-gradient(135deg, rgba(24, 19, 15, 0.96) 0%, rgba(46, 35, 24, 0.92) 100%);
+}
+
+.acara-preview-fallback-num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--gold-bright);
+  margin-bottom: 6px;
+}
+
+.acara-preview-fallback-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.3;
+}
+
+.acara-preview-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: rgba(14, 11, 8, 0.84);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#acara-preview-counter {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gold-bright);
+  white-space: nowrap;
+}
+
+.acara-preview-progress {
+  flex: 1;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  overflow: hidden;
+}
+
+.acara-preview-progress-fill {
+  height: 100%;
+  width: 12.5%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--gold-bright), var(--amber));
+  transition: width 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Kolom Kanan (Daftar Acara 01–08 bergulir vertikal ala PPA) */
+.acara-scroll-list {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow: hidden;
+}
+
+.acara-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px 1fr 46px;
+  gap: 18px;
+  align-items: start;
+  padding: 28px 24px;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 22px;
+  border-bottom: 1px solid rgba(26, 22, 19, 0.10);
+  opacity: 0.56;
+  transform: translateX(0);
+  transition:
+    opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.38s ease,
+    transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.38s ease,
+    border-color 0.38s ease;
+}
+
+.acara-row:last-child {
+  border-bottom: none;
+}
+
+/* Garis indikator aktif emas di sisi kiri baris */
+.acara-row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 22px;
+  bottom: 22px;
+  width: 3.5px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--gold-bright), var(--amber));
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* State aktif saat di-scroll ke posisi fokus atau saat di-hover */
+.acara-row.is-active,
+.acara-row:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow:
+    0 14px 32px -12px rgba(20, 16, 12, 0.16),
+    inset 0 1px 1px rgba(255, 255, 255, 0.88);
+  border-bottom-color: transparent;
+}
+
+.acara-row.is-active::before,
+.acara-row:hover::before {
+  transform: scaleY(1);
+}
+
+.acara-row:hover {
+  transform: translateX(4px);
+}
+
+.acara-row-num {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  padding-top: 4px;
+  transition: color 0.3s ease;
+}
+
+.acara-row.is-active .acara-row-num,
+.acara-row:hover .acara-row-num {
+  color: var(--amber);
+}
+
+.acara-row-content h3 {
+  margin: 0 0 10px;
+  font-size: clamp(1.12rem, 1.8vw, 1.32rem);
+  font-weight: 800;
+  color: var(--charcoal);
+  line-height: 1.3;
+  transition: color 0.25s ease;
+}
+
+.acara-row-content p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.62;
+}
+
+/* Kotak ikon kanan ala PPA (berubah menyala emas saat aktif/hover) */
+.acara-row-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(26, 22, 19, 0.08);
+  color: var(--charcoal);
+  border: 1px solid rgba(26, 22, 19, 0.12);
+  font-size: 1.1rem;
+  font-weight: 700;
+  transition:
+    background 0.32s ease,
+    color 0.32s ease,
+    border-color 0.32s ease,
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.32s ease;
+}
+
+.acara-row.is-active .acara-row-badge,
+.acara-row:hover .acara-row-badge {
+  background: linear-gradient(135deg, #ffe047 0%, var(--gold-bright) 48%, var(--amber) 100%);
+  color: var(--charcoal);
+  border-color: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 8px 20px rgba(234, 140, 0, 0.32);
+}
+
+.acara-row:hover .acara-row-badge {
+  transform: translateX(3px) scale(1.06);
+}
+
+/* Tetap dipertahankan untuk placeholder visual di halaman ruang acara (acara.html) */
 .acara-placeholder-graphic {
   position: relative;
   z-index: 1;
@@ -1891,11 +2098,18 @@ body {
     text-align: left;
     align-items: flex-start;
   }
-  .acara-item {
+  .acara-split {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
-  .acara-item.is-reversed .acara-visual {
-    order: 0;
+  .acara-sticky-col {
+    position: static;
+  }
+  .acara-row {
+    opacity: 1;
+    grid-template-columns: 34px 1fr 40px;
+    gap: 12px;
+    padding: 20px 16px;
   }
 }
 

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="only light" />
   <meta name="google-site-verification" content="trUan8e5d2ZFE9cuDqi2zqMJDxaG5qKQFg_hDj71elA" />
-  <link rel="canonical" href="https://lab-simkom-upnyk.netlify.app/" />
+  <link rel="canonical" href="https://labsimkom-upnyk.github.io/" />
   <title>Laboratorium Simulasi &amp; Komputasi Tambang — UPN Yogyakarta</title>
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/favicon.png" />
@@ -297,24 +297,50 @@
     </section>
 
     <!-- =========================================================
-         5. SEKILAS TIAP ACARA (PLACEHOLDER PERENCANAAN TAMBANG)
-         Catatan: Daftar acara ini masih placeholder. Edit di script.js (bagian ACARA_LIST)
+         5. ACARA PRAKTIKUM (GAYA STICKY SPLIT ALA PPA)
+         Catatan: Daftar acara & sandi diedit pada file data.js (ACARA_LIST)
          ========================================================= -->
     <section id="acara-showcase" class="section section-alt">
       <div class="container">
-        <div class="section-header reveal">
-          <div>
-            <h2 class="section-title">Sekilas Tiap Acara</h2>
-            <p class="section-subtitle">
-              Klik kotak acara untuk masuk ke halaman khusus tiap acara yang berisi tujuan,
-              PPT materi, data praktikum, dan jadwal praktikum.
-            </p>
-          </div>
-          <span class="section-badge lg-pill">01&ndash;08</span>
-        </div>
+        <div class="acara-split">
+          <!-- Kolom Kiri (Sticky — tetap diam saat bagian kanan digulir) -->
+          <div class="acara-sticky-col">
+            <div class="acara-sticky-card lg-panel lg-dark reveal">
+              <div class="acara-sticky-top">
+                <span class="acara-sticky-dot" aria-hidden="true"></span>
+                <span class="acara-sticky-kicker">PRAKTIKUM PERENCANAAN TAMBANG</span>
+              </div>
 
-        <!-- Daftar acara dirender otomatis oleh script.js agar mudah diedit -->
-        <div id="acara-list" class="acara-list"></div>
+              <h2 class="acara-sticky-title">
+                <span>Acara</span> Praktikum
+              </h2>
+
+              <p class="acara-sticky-desc">
+                Gulir daftar di sebelah kanan untuk menelusuri seluruh rangkaian acara praktikum,
+                lalu klik acara untuk masuk ke ruang materi, data, dan jadwal.
+              </p>
+
+              <a id="acara-active-cta" href="acara.html?id=01" class="acara-sticky-cta">
+                <span class="acara-cta-icon" aria-hidden="true">&rarr;</span>
+                <span id="acara-active-cta-text">MASUK ACARA 01</span>
+              </a>
+
+              <!-- Pratinjau visual yang otomatis berubah mengikuti urutan acara saat di-scroll -->
+              <a id="acara-preview-link" href="acara.html?id=01" class="acara-preview-box">
+                <div id="acara-preview-stage" class="acara-preview-stage"></div>
+                <div class="acara-preview-bar">
+                  <span id="acara-preview-counter">01 / 08</span>
+                  <div class="acara-preview-progress">
+                    <div id="acara-preview-progress-fill" class="acara-preview-progress-fill"></div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- Kolom Kanan (Daftar Acara 01–08 yang bergulir) -->
+          <div id="acara-list" class="acara-scroll-list lg-panel"></div>
+        </div>
       </div>
     </section>
 

@@ -20,39 +20,8 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="page-acara-room">
-  <!-- Filter Optik iOS Liquid Glass (identik dengan halaman utama) -->
-  <svg class="lg-svg-defs" aria-hidden="true" width="0" height="0" focusable="false">
-    <defs>
-      <filter id="ios-liquid-glass" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
-        <feImage
-          id="lg-displacement-image"
-          href=""
-          x="0%"
-          y="0%"
-          width="100%"
-          height="100%"
-          preserveAspectRatio="none"
-          result="dispMap"
-        />
-        <feDisplacementMap id="lg-disp-r" in="SourceGraphic" in2="dispMap" scale="28" xChannelSelector="R" yChannelSelector="G" result="dispR" />
-        <feColorMatrix in="dispR" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="redCh" />
-        <feDisplacementMap id="lg-disp-g" in="SourceGraphic" in2="dispMap" scale="24" xChannelSelector="R" yChannelSelector="G" result="dispG" />
-        <feColorMatrix in="dispG" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="greenCh" />
-        <feDisplacementMap id="lg-disp-b" in="SourceGraphic" in2="dispMap" scale="20" xChannelSelector="R" yChannelSelector="G" result="dispB" />
-        <feColorMatrix in="dispB" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="blueCh" />
-        <feBlend in="redCh" in2="greenCh" mode="screen" result="rg" />
-        <feBlend in="rg" in2="blueCh" mode="screen" result="rgbRefracted" />
-        <feColorMatrix id="lg-saturate" in="rgbRefracted" type="saturate" values="1.05" />
-      </filter>
-    </defs>
-  </svg>
-
-  <!-- Latar atmosfer cair -->
+  <!-- Latar atmosfer cair ringan (tanpa animasi blur berat agar tetap 60fps) -->
   <div class="ambient-backdrop" aria-hidden="true">
-    <div class="ambient-orb orb-1"></div>
-    <div class="ambient-orb orb-2"></div>
-    <div class="ambient-orb orb-3"></div>
-    <div class="ambient-orb orb-4"></div>
     <div class="ambient-topo"></div>
   </div>
 

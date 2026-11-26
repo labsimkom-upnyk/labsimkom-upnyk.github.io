@@ -1,131 +1,45 @@
 /* =====================================================================
-   ENGINE OPTIK LIQUID GLASS (Peta Pembiasan Lensa + Cahaya Reaktif Kursor)
-   Catatan: Data acara, asisten, & parameter kaca berada di file data.js
+   ENGINE OPTIK LIQUID GLASS (Ringan 60fps — tanpa SVG displacement readback)
    ===================================================================== */
 
-/**
- * Menghasilkan peta normal permukaan lensa bevel (displacement map) pada canvas
- * sesuai parameter Corner Radius (32), Z-Radius (30), Refraction (0.88),
- * Distortion (0.13), dan Chromatic Aberration (0.055), lalu memasangkannya ke filter SVG.
- */
 function initLiquidGlassOptics() {
   if (typeof LIQUID_GLASS_CONFIG === "undefined") return;
   const cfg = LIQUID_GLASS_CONFIG;
-  const imgEl = document.getElementById("lg-displacement-image");
-  const dispR = document.getElementById("lg-disp-r");
-  const dispG = document.getElementById("lg-disp-g");
-  const dispB = document.getElementById("lg-disp-b");
-  const satEl = document.getElementById("lg-saturate");
-
   const root = document.documentElement;
-  root.style.setProperty("--lg-blur", `${cfg.blurAmount}px`);
   root.style.setProperty("--lg-radius", `${cfg.cornerRadius}px`);
-  root.style.setProperty("--lg-edge-highlight", String(cfg.edgeHighlight));
-  root.style.setProperty("--lg-specular", String(cfg.specular));
-  root.style.setProperty("--lg-shadow-opacity", String(cfg.shadowOpacity));
-  root.style.setProperty("--lg-shadow-spread", `${cfg.shadowSpread}px`);
   root.style.setProperty("--lg-saturate", String(1 + cfg.saturation));
-
-  if (!imgEl) return;
-
-  const w = 256;
-  const h = 256;
-  const canvas = document.createElement("canvas");
-  canvas.width = w;
-  canvas.height = h;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return;
-
-  const imageData = ctx.createImageData(w, h);
-  const data = imageData.data;
-
-  const rx = 0.5;
-  const ry = 0.5;
-  const cornerNorm = Math.min(0.24, (cfg.cornerRadius / 256) * 1.15);
-  const bevelWidth = Math.min(0.24, (cfg.zRadius / 256) * 1.35);
-
-  for (let y = 0; y < h; y += 1) {
-    for (let x = 0; x < w; x += 1) {
-      const u = (x + 0.5) / w - 0.5;
-      const v = (y + 0.5) / h - 0.5;
-
-      const qx = Math.abs(u) - (rx - cornerNorm);
-      const qy = Math.abs(v) - (ry - cornerNorm);
-      const outX = Math.max(qx, 0);
-      const outY = Math.max(qy, 0);
-      const outsideDist = Math.hypot(outX, outY);
-      const insideDist = Math.min(Math.max(qx, qy), 0);
-      const sdf = outsideDist + insideDist - cornerNorm;
-      const distFromEdge = Math.max(0, -sdf);
-
-      let nx = 0;
-      let ny = 0;
-
-      if (distFromEdge < bevelWidth) {
-        const t = 1 - distFromEdge / bevelWidth;
-        const curve = Math.pow(t, 2.15) * (1 + cfg.distortion * 1.8);
-
-        let gx = 0;
-        let gy = 0;
-        if (qx > 0 || qy > 0) {
-          const len = Math.hypot(outX, outY) || 1;
-          gx = (outX / len) * Math.sign(u || 1);
-          gy = (outY / len) * Math.sign(v || 1);
-        } else if (qx > qy) {
-          gx = Math.sign(u || 1);
-        } else {
-          gy = Math.sign(v || 1);
-        }
-
-        nx = gx * curve;
-        ny = gy * curve;
-      }
-
-      const idx = (y * w + x) * 4;
-      data[idx] = Math.round(Math.max(0, Math.min(255, 128 + nx * 127)));
-      data[idx + 1] = Math.round(Math.max(0, Math.min(255, 128 + ny * 127)));
-      data[idx + 2] = 128;
-      data[idx + 3] = 255;
-    }
-  }
-
-  ctx.putImageData(imageData, 0, 0);
-  const dataUrl = canvas.toDataURL("image/png");
-  imgEl.setAttribute("href", dataUrl);
-  imgEl.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", dataUrl);
-
-  const baseScale = Math.round(cfg.refraction * 26 * (1 + cfg.distortion));
-  const chromaDelta = Math.max(2, Math.round(cfg.chromaticAberration * 90));
-
-  if (dispR) dispR.setAttribute("scale", String(baseScale + chromaDelta));
-  if (dispG) dispG.setAttribute("scale", String(baseScale));
-  if (dispB) dispB.setAttribute("scale", String(Math.max(0, baseScale - chromaDelta)));
-  if (satEl) satEl.setAttribute("values", String(1 + cfg.saturation));
 }
 
 /**
- * Cahaya reaktif bergaya iOS Liquid Glass pada permukaan & tepian panel kaca
+ * Cahaya reaktif bergaya iOS Liquid Glass (dioptimalkan bebas layout thrashing):
+ * Target di-cache sekali, fase baca (getBoundingClientRect) dipisah dari fase tulis CSS.
  */
 function initCursorLight() {
   if (window.matchMedia("(pointer: coarse)").matches) return;
 
-  const PROXIMITY_RADIUS = 320;
+  const PROXIMITY_RADIUS = 300;
+  let targets = Array.from(document.querySelectorAll(".lg-panel, .header-nav a, .room-back-btn"));
   let pointerX = -9999;
   let pointerY = -9999;
   let rafPending = false;
 
-  function getGlassTargets() {
-    return document.querySelectorAll(".lg-panel, .acara-item, .header-nav a, .room-back-btn");
-  }
+  // Sediakan penyegaran daftar target setelah ruang acara dibuka
+  window.__refreshGlassTargets = () => {
+    targets = Array.from(document.querySelectorAll(".lg-panel, .header-nav a, .room-back-btn"));
+  };
 
   function updateGlassLighting() {
     rafPending = false;
-    const targets = getGlassTargets();
+    const vh = window.innerHeight;
+    const updates = [];
 
-    targets.forEach((el) => {
+    // Fase 1: BACA seluruh posisi terlebih dahulu (mencegah forced reflow / layout thrashing)
+    for (let i = 0; i < targets.length; i += 1) {
+      const el = targets[i];
       const rect = el.getBoundingClientRect();
-      if (rect.bottom < -PROXIMITY_RADIUS || rect.top > window.innerHeight + PROXIMITY_RADIUS) {
-        return;
+      if (rect.width === 0 || rect.bottom < -PROXIMITY_RADIUS || rect.top > vh + PROXIMITY_RADIUS) {
+        if (el._lgLit) updates.push({ el, lit: false });
+        continue;
       }
 
       const dx = Math.max(rect.left - pointerX, 0, pointerX - rect.right);
@@ -133,15 +47,32 @@ function initCursorLight() {
       const dist = Math.hypot(dx, dy);
 
       if (dist < PROXIMITY_RADIUS) {
-        const linear = 1 - dist / PROXIMITY_RADIUS;
-        const intensity = Math.pow(linear, 1.5);
-        el.style.setProperty("--mx", `${pointerX - rect.left}px`);
-        el.style.setProperty("--my", `${pointerY - rect.top}px`);
-        el.style.setProperty("--lg-light", intensity.toFixed(3));
-      } else if (el.style.getPropertyValue("--lg-light") !== "0") {
-        el.style.setProperty("--lg-light", "0");
+        const intensity = Math.pow(1 - dist / PROXIMITY_RADIUS, 1.5);
+        updates.push({
+          el,
+          lit: true,
+          mx: pointerX - rect.left,
+          my: pointerY - rect.top,
+          intensity
+        });
+      } else if (el._lgLit) {
+        updates.push({ el, lit: false });
       }
-    });
+    }
+
+    // Fase 2: TULIS properti CSS sekaligus dalam satu batch
+    for (let i = 0; i < updates.length; i += 1) {
+      const u = updates[i];
+      if (u.lit) {
+        u.el._lgLit = true;
+        u.el.style.setProperty("--mx", `${u.mx.toFixed(1)}px`);
+        u.el.style.setProperty("--my", `${u.my.toFixed(1)}px`);
+        u.el.style.setProperty("--lg-light", u.intensity.toFixed(3));
+      } else {
+        u.el._lgLit = false;
+        u.el.style.setProperty("--lg-light", "0");
+      }
+    }
   }
 
   window.addEventListener(
@@ -159,8 +90,11 @@ function initCursorLight() {
   );
 
   document.addEventListener("mouseleave", () => {
-    getGlassTargets().forEach((el) => {
-      el.style.setProperty("--lg-light", "0");
+    targets.forEach((el) => {
+      if (el._lgLit) {
+        el._lgLit = false;
+        el.style.setProperty("--lg-light", "0");
+      }
     });
   });
 }
@@ -463,6 +397,9 @@ function renderAcaraRoom() {
     if (protectedEl) {
       protectedEl.hidden = false;
       protectedEl.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
+      if (typeof window.__refreshGlassTargets === "function") {
+        window.__refreshGlassTargets();
+      }
     }
   }
 

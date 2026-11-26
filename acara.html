@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="only light" />
+  <title>Ruang Acara Praktikum — Lab Simulasi &amp; Komputasi Tambang UPN Yogyakarta</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/favicon.png" />
+  <meta
+    name="description"
+    content="Halaman ruang khusus acara Praktikum Perencanaan Tambang — Laboratorium Simulasi dan Komputasi Tambang, UPN Yogyakarta."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page-acara-room">
+  <!-- Filter Optik iOS Liquid Glass (identik dengan halaman utama) -->
+  <svg class="lg-svg-defs" aria-hidden="true" width="0" height="0" focusable="false">
+    <defs>
+      <filter id="ios-liquid-glass" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+        <feImage
+          id="lg-displacement-image"
+          href=""
+          x="0%"
+          y="0%"
+          width="100%"
+          height="100%"
+          preserveAspectRatio="none"
+          result="dispMap"
+        />
+        <feDisplacementMap id="lg-disp-r" in="SourceGraphic" in2="dispMap" scale="28" xChannelSelector="R" yChannelSelector="G" result="dispR" />
+        <feColorMatrix in="dispR" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="redCh" />
+        <feDisplacementMap id="lg-disp-g" in="SourceGraphic" in2="dispMap" scale="24" xChannelSelector="R" yChannelSelector="G" result="dispG" />
+        <feColorMatrix in="dispG" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="greenCh" />
+        <feDisplacementMap id="lg-disp-b" in="SourceGraphic" in2="dispMap" scale="20" xChannelSelector="R" yChannelSelector="G" result="dispB" />
+        <feColorMatrix in="dispB" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="blueCh" />
+        <feBlend in="redCh" in2="greenCh" mode="screen" result="rg" />
+        <feBlend in="rg" in2="blueCh" mode="screen" result="rgbRefracted" />
+        <feColorMatrix id="lg-saturate" in="rgbRefracted" type="saturate" values="1.05" />
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Latar atmosfer cair -->
+  <div class="ambient-backdrop" aria-hidden="true">
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
+    <div class="ambient-orb orb-4"></div>
+    <div class="ambient-topo"></div>
+  </div>
+
+  <!-- Tanda sudut teknis -->
+  <div class="corner-mark tl" aria-hidden="true"></div>
+  <div class="corner-mark tr" aria-hidden="true"></div>
+  <div class="corner-mark bl" aria-hidden="true"></div>
+  <div class="corner-mark br" aria-hidden="true"></div>
+
+  <!-- =========================================================
+       HEADER RUANG ACARA
+       ========================================================= -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner lg-panel lg-nav-shell">
+        <a href="index.html?from=acara#acara-showcase" class="room-back-btn">
+          &larr; Kembali ke Beranda
+        </a>
+
+        <a href="index.html?from=acara" class="brand room-brand-mini">
+          <img src="assets/logo-swoosh.png" alt="Logo Lab" class="brand-logo" />
+          <div class="brand-text">
+            <span class="brand-label">RUANG PRAKTIKUM</span>
+            <strong class="brand-name" id="room-header-title">Acara 01</strong>
+          </div>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="room-main" class="room-main">
+    <div class="container">
+      <!-- Bar pintasan pindah ruang acara (01 - 08) -->
+      <nav id="room-switcher" class="room-switcher lg-panel" aria-label="Pindah Ruang Acara"></nav>
+
+      <!-- Gerbang Sandi Acara (tampil sebelum konten acara dibuka) -->
+      <section id="room-gate" class="room-gate lg-panel" aria-labelledby="room-gate-title">
+        <div class="room-gate-inner">
+          <h1 id="room-gate-title" class="room-gate-title">Diproteksi: Acara I</h1>
+          <p class="room-gate-desc">
+            Konten ini dilindungi dengan sandi. Masukkan sandi Anda di sini untuk menampilkannya.
+          </p>
+          <form id="room-gate-form" class="room-gate-form" novalidate>
+            <label for="room-password-input" class="room-gate-label">Password:</label>
+            <input
+              id="room-password-input"
+              class="room-gate-input"
+              type="password"
+              placeholder="Masukkan sandi acara..."
+              autocomplete="off"
+              required
+            />
+            <button type="submit" class="room-gate-submit">Masukkan</button>
+          </form>
+          <p id="room-gate-error" class="room-gate-error" role="alert" hidden></p>
+        </div>
+      </section>
+
+      <!-- Konten Ruang Acara (baru ditampilkan setelah sandi benar) -->
+      <div id="room-protected-content" hidden>
+        <!-- Hero Ruang Acara -->
+        <section id="room-hero" class="room-hero lg-panel lg-dark reveal"></section>
+
+        <!-- Berkas & Tautan Acara (Google Drive / Dataset / Tugas) -->
+        <section class="room-section">
+          <div class="section-header reveal">
+            <div>
+              <h2 class="section-title">PPT Materi, Data &amp; Jadwal Praktikum</h2>
+            </div>
+            <span class="section-badge lg-pill" id="room-code-badge">ACARA 01</span>
+          </div>
+          <div id="room-resources" class="room-resources-grid"></div>
+        </section>
+
+        <!-- Tujuan & Langkah Pengerjaan -->
+        <section class="room-section">
+          <div class="room-two-col">
+            <div class="room-info-card lg-panel reveal">
+              <h3>Tujuan Praktikum</h3>
+              <ul id="room-tujuan" class="room-list"></ul>
+            </div>
+
+            <div class="room-info-card lg-panel reveal">
+              <h3>Langkah Pengerjaan</h3>
+              <ol id="room-langkah" class="room-steps"></ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- Catatan Asisten -->
+        <section class="room-section">
+          <div class="room-note lg-panel reveal">
+            <span class="room-note-badge">CATATAN ASISTEN</span>
+            <p id="room-catatan"></p>
+          </div>
+        </section>
+
+        <!-- Navigasi Antar Ruang Acara -->
+        <nav id="room-footer-nav" class="room-footer-nav reveal" aria-label="Navigasi Acara Sebelumnya dan Berikutnya"></nav>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner lg-panel lg-dark">
+        <div class="footer-brand">
+          <img src="assets/logo-swoosh.png" alt="Logo Lab" class="footer-logo" />
+          <div>
+            <strong>Laboratorium Simulasi dan Komputasi Tambang</strong>
+            <p>Universitas Pembangunan Nasional Yogyakarta &mdash; Praktikum Perencanaan Tambang</p>
+          </div>
+        </div>
+        <span class="footer-note">&copy; <span id="year-now"></span> Lab Simkom UPNYK</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

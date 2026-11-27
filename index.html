@@ -37,7 +37,7 @@
        1. SPLASH SCREEN PEMBUKA (hilang otomatis dalam 3.2 detik)
        ========================================================= -->
   <div id="splash-overlay" class="splash-overlay" role="dialog" aria-label="Layar Pembuka">
-    <div class="splash-content lg-panel lg-dark">
+    <div class="splash-content lg-panel">
       <img
         src="assets/logo-swoosh.png"
         alt="Logo Laboratorium Simulasi dan Komputasi Tambang"
@@ -80,7 +80,6 @@
         <nav class="header-nav" aria-label="Navigasi Utama">
           <a href="#dokumen-umum">Dokumen</a>
           <a href="#acara-showcase">Acara</a>
-          <a href="#buku-panduan">Panduan</a>
           <a href="#tim-asisten">Asisten</a>
         </nav>
       </div>
@@ -93,7 +92,7 @@
          ========================================================= -->
     <section class="hero-section mine-band mine-band-hero">
       <div class="container">
-        <div class="hero-banner lg-panel lg-dark">
+        <div class="hero-banner lg-panel">
           <div class="hero-banner-content">
             <h2 class="hero-banner-title">
               PRAKTIKUM<br />
@@ -208,103 +207,60 @@
             <p>Template halaman sampul, margin, format tabel/gambar, dan acuan penulisan laporan.</p>
             <span class="doc-link-label">Buka Google Drive &rarr;</span>
           </a>
-        </div>
-      </div>
-    </section>
 
-    <!-- =========================================================
-         5. ACARA PRAKTIKUM (BAGIAN HORIZONTAL 3: HAUL TRUCK & EXCAVATOR)
-         Catatan: Daftar acara & sandi diedit pada file data.js (ACARA_LIST)
-         ========================================================= -->
-    <section id="acara-showcase" class="section mine-band mine-band-acara">
-      <div class="container">
-        <div class="acara-split">
-          <!-- Kolom Kiri (Sticky — tetap diam saat bagian kanan digulir) -->
-          <div class="acara-sticky-col">
-            <div class="acara-sticky-card lg-panel lg-dark reveal">
-              <div class="acara-sticky-top">
-                <span class="acara-sticky-dot" aria-hidden="true"></span>
-                <span class="acara-sticky-kicker">PRAKTIKUM PERENCANAAN TAMBANG</span>
-              </div>
-
-              <h2 class="acara-sticky-title">
-                <span>Acara</span> Praktikum
-              </h2>
-
-              <p class="acara-sticky-desc">
-                Gulir daftar di sebelah kanan untuk menelusuri seluruh rangkaian acara praktikum,
-                lalu klik acara untuk masuk ke ruang materi, data, dan jadwal.
-              </p>
-
-              <a id="acara-active-cta" href="acara.html?id=01" class="acara-sticky-cta">
-                <span class="acara-cta-icon" aria-hidden="true">&rarr;</span>
-                <span id="acara-active-cta-text">MASUK ACARA 01</span>
-              </a>
-
-              <!-- Pratinjau visual yang otomatis berubah mengikuti urutan acara saat di-scroll -->
-              <a id="acara-preview-link" href="acara.html?id=01" class="acara-preview-box">
-                <div id="acara-preview-stage" class="acara-preview-stage"></div>
-                <div class="acara-preview-bar">
-                  <span id="acara-preview-counter">01 / 08</span>
-                  <div class="acara-preview-progress">
-                    <div id="acara-preview-progress-fill" class="acara-preview-progress-fill"></div>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <!-- Kolom Kanan (Daftar Acara 01–08 yang bergulir) -->
-          <div id="acara-list" class="acara-scroll-list lg-panel"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         6. STUDY CASE & BUKU PANDUAN (BAGIAN HORIZONTAL 4: AERIAL PIT CONTOUR)
-         ========================================================= -->
-    <section id="buku-panduan" class="section mine-band mine-band-panduan">
-      <div class="container highlight-stack">
-        <!-- Study Case -->
-        <a
-          href="https://drive.google.com/drive/folders/1CHvD43W4ufRIKo8if_z380y1b6Oiq6qE"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="highlight-card highlight-study lg-panel lg-dark reveal"
-        >
-          <div class="highlight-badge">SC</div>
-          <div class="highlight-body">
-            <h3>Studi Kasus Perencanaan Tambang</h3>
-            <p>
-              Kumpulan data proyek akhir terintegrasi: pemodelan blok, desain pit akhir, hingga
-              penjadwalan produksi.
-            </p>
-          </div>
-          <span class="highlight-cta">Buka Folder &rarr;</span>
-        </a>
-
-        <!-- Buku Panduan -->
-        <a
-          href="https://drive.google.com/drive/folders/1-zMuTLhX_UpdDlID4rgXIJeVytRyeJQW"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="highlight-card highlight-guide lg-panel reveal"
-        >
-          <div class="highlight-badge">BP</div>
-          <div class="highlight-body">
+          <a
+            href="https://drive.google.com/drive/folders/1-zMuTLhX_UpdDlID4rgXIJeVytRyeJQW"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="doc-card lg-panel reveal"
+          >
+            <span class="doc-num">03</span>
             <h3>Buku Panduan Praktikum</h3>
-            <p>
-              Modul lengkap langkah demi langkah pengoperasian perangkat lunak dan dasar teori
-              perencanaan tambang.
-            </p>
-          </div>
-          <span class="highlight-cta">Unduh Modul &rarr;</span>
-        </a>
+            <p>Modul lengkap langkah demi langkah pengoperasian perangkat lunak dan dasar teori perencanaan tambang.</p>
+            <span class="doc-link-label">Unduh Modul &rarr;</span>
+          </a>
+        </div>
       </div>
     </section>
 
     <!-- =========================================================
-         7. TIM ASISTEN & FOOTER (BAGIAN HORIZONTAL 5: PANORAMA TAMBANG SENJA)
+         5. ACARA PRAKTIKUM & STUDI KASUS (FULL-WIDTH STICKY SPLIT + LATAR STATIS TERANG)
+         Catatan: Daftar acara & sandi diedit pada file data.js (ACARA_LIST & STUDI_KASUS_ITEM)
+         ========================================================= -->
+    <section id="acara-showcase" class="acara-ppa-section">
+      <!-- Latar foto tambang statis (diam tidak ikut bergulir saat daftar kanan di-scroll) -->
+      <div class="acara-bg-sticky" aria-hidden="true">
+        <div class="acara-bg-photo"></div>
+      </div>
+
+      <div class="acara-split">
+        <!-- Kolom Kiri (Sticky — tetap diam saat bagian kanan digulir) -->
+        <div class="acara-sticky-col">
+          <div class="acara-sticky-card">
+            <h2 class="acara-sticky-title">
+              <span>Acara</span> Praktikum
+            </h2>
+
+            <!-- Pratinjau visual yang otomatis berubah mengikuti urutan acara saat di-scroll -->
+            <a id="acara-preview-link" href="acara.html?id=01" class="acara-preview-box">
+              <div id="acara-preview-stage" class="acara-preview-stage"></div>
+              <div class="acara-preview-bar">
+                <span id="acara-preview-counter">01 / 09</span>
+                <div class="acara-preview-progress">
+                  <div id="acara-preview-progress-fill" class="acara-preview-progress-fill"></div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Kolom Kanan (Daftar Acara 1–8 & Studi Kasus bergulir penuh sampai tepi kanan layar) -->
+        <div id="acara-list" class="acara-scroll-list"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         6. TIM ASISTEN & FOOTER (PANORAMA TAMBANG TERANG)
          Catatan: Edit daftar asisten di data.js (bagian ASISTEN_LIST)
          ========================================================= -->
     <div class="mine-band mine-band-asisten">
@@ -335,7 +291,7 @@
            ========================================================= -->
       <footer class="site-footer">
         <div class="container">
-          <div class="footer-inner lg-panel lg-dark">
+          <div class="footer-inner lg-panel">
             <div class="footer-brand">
               <img src="assets/logo-swoosh.png" alt="Logo Lab" class="footer-logo" />
               <div>

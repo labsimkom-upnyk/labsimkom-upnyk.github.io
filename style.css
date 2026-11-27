@@ -192,27 +192,27 @@ body {
   z-index: 2;
 }
 
-/* Varian Liquid Glass Gelap (Hero, Splash, Study Case, Footer) */
+/* Varian Liquid Glass Champagne Terang (menjaga 1 tema terang di seluruh situs) */
 .lg-panel.lg-dark {
   background: linear-gradient(
     135deg,
-    rgba(24, 20, 17, 0.84) 0%,
-    rgba(38, 30, 22, 0.76) 52%,
-    rgba(62, 43, 18, 0.82) 100%
+    rgba(255, 255, 255, 0.72) 0%,
+    rgba(255, 250, 238, 0.56) 52%,
+    rgba(255, 243, 214, 0.68) 100%
   );
-  border: 1px solid rgba(255, 242, 206, 0.30);
+  border: 1px solid rgba(255, 255, 255, 0.80);
   box-shadow:
-    0 18px 38px -10px rgba(14, 11, 8, 0.36),
-    inset 0 1.5px 1.5px rgba(255, 248, 226, 0.44),
-    inset 0 -1.5px 2px rgba(255, 204, 82, 0.22);
+    0 16px 34px -10px rgba(24, 18, 12, 0.14),
+    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.94),
+    inset 0 -1.5px 2px rgba(234, 140, 0, 0.22);
 }
 
 .lg-panel.lg-dark::before {
   background: radial-gradient(
     360px circle at var(--mx) var(--my),
-    rgba(255, 255, 255, 0.52) 0%,
-    rgba(255, 234, 170, 0.26) 32%,
-    rgba(255, 255, 255, 0.08) 62%,
+    rgba(255, 255, 255, 0.68) 0%,
+    rgba(255, 234, 170, 0.30) 32%,
+    rgba(255, 255, 255, 0.10) 62%,
     transparent 86%
   );
 }
@@ -221,16 +221,16 @@ body {
   background:
     radial-gradient(
       360px circle at var(--mx) var(--my),
-      rgba(255, 255, 255, 0.13) 0%,
-      rgba(255, 236, 178, 0.06) 40%,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 236, 178, 0.10) 40%,
       transparent 80%
     ),
     linear-gradient(
       145deg,
-      rgba(255, 255, 255, 0.10) 0%,
+      rgba(255, 255, 255, 0.16) 0%,
       transparent 38%,
       transparent 74%,
-      rgba(255, 214, 96, 0.08) 100%
+      rgba(255, 214, 96, 0.10) 100%
     );
 }
 
@@ -265,15 +265,15 @@ body {
 .corner-mark.br { bottom: 12px; right: 12px; border-width: 0 2px 2px 0; }
 
 /* =========================================================================
-   SPLASH SCREEN
+   SPLASH SCREEN (TEMA TERANG KONSISTEN)
    ========================================================================= */
 .splash-overlay {
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at 50% 35%, rgba(44, 34, 22, 0.88), rgba(16, 13, 10, 0.94));
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: #ffffff;
+  background: radial-gradient(circle at 50% 35%, rgba(255, 252, 244, 0.94), rgba(242, 234, 218, 0.96));
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: var(--charcoal);
   display: grid;
   place-items: center;
   z-index: 1000;
@@ -297,46 +297,47 @@ body {
   width: min(260px, 68vw);
   height: auto;
   margin-bottom: 20px;
-  filter:
-    drop-shadow(0 0 18px rgba(255, 224, 120, 0.36))
-    drop-shadow(0 1px 5px rgba(255, 255, 255, 0.24));
+  filter: drop-shadow(0 8px 18px rgba(20, 16, 12, 0.12));
 }
 
 .splash-kicker {
   font-family: var(--font-mono);
   font-size: 0.75rem;
+  font-weight: 700;
   letter-spacing: 0.14em;
-  color: var(--gold-bright);
+  color: #c76f00;
   margin: 0 0 8px;
 }
 
 .splash-title {
   font-size: clamp(1.4rem, 4vw, 2.1rem);
   font-weight: 800;
+  color: var(--charcoal);
   margin: 0 0 6px;
   letter-spacing: -0.02em;
 }
 
 .splash-subtitle {
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--text-muted);
   margin: 0 0 24px;
   font-size: 0.95rem;
 }
 
 .splash-skip {
-  background: rgba(255, 208, 0, 0.14);
-  color: var(--gold-bright);
-  border: 1px solid rgba(255, 208, 0, 0.5);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--charcoal);
+  border: 1px solid rgba(234, 140, 0, 0.45);
   padding: 9px 22px;
   border-radius: 999px;
   font-family: var(--font-mono);
   font-size: 0.8rem;
+  font-weight: 700;
   cursor: pointer;
   transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
 }
 
 .splash-skip:hover {
-  background: var(--gold-bright);
+  background: linear-gradient(135deg, #ffe047, var(--amber));
   color: var(--charcoal);
   transform: scale(1.04);
 }
@@ -496,9 +497,9 @@ body {
   background-image:
     linear-gradient(
       180deg,
-      rgba(248, 243, 232, 0.30) 0%,
-      rgba(26, 20, 15, 0.24) 55%,
-      rgba(18, 14, 10, 0.42) 100%
+      rgba(252, 248, 239, 0.54) 0%,
+      rgba(249, 243, 230, 0.42) 55%,
+      rgba(247, 240, 226, 0.58) 100%
     ),
     url("assets/bg-hero-mine.jpg");
 }
@@ -516,37 +517,13 @@ body {
     url("assets/bg-dokumen-mine.jpg");
 }
 
-.mine-band-acara {
-  padding: 68px 0;
-  background-image:
-    linear-gradient(
-      180deg,
-      rgba(246, 239, 226, 0.46) 0%,
-      rgba(36, 28, 20, 0.26) 55%,
-      rgba(24, 19, 14, 0.42) 100%
-    ),
-    url("assets/bg-acara-mine.jpg");
-}
-
-.mine-band-panduan {
-  padding: 72px 0;
-  background-image:
-    linear-gradient(
-      180deg,
-      rgba(248, 243, 232, 0.40) 0%,
-      rgba(244, 236, 220, 0.36) 50%,
-      rgba(248, 242, 230, 0.46) 100%
-    ),
-    url("assets/bg-panduan-mine.jpg");
-}
-
 .mine-band-asisten {
   background-image:
     linear-gradient(
       180deg,
       rgba(250, 245, 235, 0.68) 0%,
-      rgba(246, 238, 224, 0.46) 52%,
-      rgba(20, 16, 12, 0.44) 100%
+      rgba(246, 238, 224, 0.52) 56%,
+      rgba(245, 238, 224, 0.66) 100%
     ),
     url("assets/bg-asisten-mine.jpg");
 }
@@ -566,33 +543,40 @@ body {
 }
 
 /* =========================================================================
-   HERO BANNER & MARQUEE
+   HERO BANNER & MARQUEE (TEMA TERANG KONSISTEN)
    ========================================================================= */
 .hero-section {
   padding-top: 112px;
 }
 
 .hero-banner {
-  color: #ffffff;
+  color: var(--charcoal);
   padding: clamp(28px, 5vw, 52px);
   display: grid;
   grid-template-columns: 1.25fr 0.75fr;
   align-items: center;
   gap: 28px;
   overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.74) 0%,
+    rgba(255, 251, 242, 0.56) 54%,
+    rgba(255, 245, 222, 0.68) 100%
+  );
 }
 
 .hero-pill {
   display: inline-block;
   font-family: var(--font-mono);
   font-size: 0.72rem;
+  font-weight: 700;
   letter-spacing: 0.1em;
   padding: 6px 14px;
   border-radius: 999px;
-  background: rgba(255, 208, 0, 0.16);
-  color: var(--gold-bright);
-  border: 1px solid rgba(255, 208, 0, 0.42);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.32);
+  background: rgba(255, 246, 214, 0.84);
+  color: #b86200;
+  border: 1px solid rgba(234, 140, 0, 0.36);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.85);
   margin-bottom: 14px;
 }
 
@@ -602,10 +586,11 @@ body {
   font-weight: 800;
   line-height: 1.15;
   letter-spacing: -0.02em;
+  color: var(--charcoal);
 }
 
 .hero-banner-title span {
-  background: linear-gradient(90deg, var(--gold-bright), #ffaa1d);
+  background: linear-gradient(90deg, #d88300, #c46400);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -613,7 +598,7 @@ body {
 
 .hero-banner-desc {
   margin: 0 0 24px;
-  color: rgba(255, 255, 255, 0.84);
+  color: var(--text-muted);
   max-width: 540px;
   font-size: 0.98rem;
 }
@@ -641,25 +626,26 @@ body {
   background: linear-gradient(135deg, #ffe047 0%, var(--gold-bright) 48%, var(--amber) 100%);
   color: var(--charcoal);
   box-shadow:
-    0 10px 24px rgba(234, 140, 0, 0.35),
+    0 10px 24px rgba(234, 140, 0, 0.30),
     inset 0 1.5px 1px rgba(255, 255, 255, 0.72);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px) scale(1.02);
   box-shadow:
-    0 16px 32px rgba(234, 140, 0, 0.44),
+    0 16px 32px rgba(234, 140, 0, 0.40),
     inset 0 1.5px 1px rgba(255, 255, 255, 0.85);
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.14);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--charcoal);
+  border: 1px solid rgba(26, 22, 19, 0.16);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(234, 140, 0, 0.48);
   transform: translateY(-2px) scale(1.02);
 }
 
@@ -668,28 +654,28 @@ body {
   padding: 34px 24px;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.10), rgba(255, 232, 165, 0.05));
-  border: 1px solid rgba(255, 232, 165, 0.24);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(255, 246, 222, 0.62));
+  border: 1px solid rgba(255, 255, 255, 0.88);
 }
 
 .hero-swoosh-img {
   width: 100%;
   max-width: 260px;
   height: auto;
-  filter:
-    drop-shadow(0 0 18px rgba(255, 224, 120, 0.34))
-    drop-shadow(0 1px 4px rgba(255, 255, 255, 0.22));
+  filter: drop-shadow(0 8px 16px rgba(24, 18, 12, 0.12));
 }
 
 .marquee-bar {
   margin-top: 26px;
-  background: rgba(24, 20, 17, 0.86);
-  color: var(--gold-bright);
+  background: rgba(255, 251, 242, 0.84);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--charcoal);
   padding: 11px 0;
   overflow: hidden;
-  border-top: 1px solid rgba(255, 214, 96, 0.42);
-  border-bottom: 1px solid rgba(255, 214, 96, 0.42);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.18);
+  border-top: 1px solid rgba(234, 140, 0, 0.30);
+  border-bottom: 1px solid rgba(234, 140, 0, 0.30);
+  box-shadow: 0 4px 16px rgba(24, 18, 12, 0.06);
 }
 
 .marquee-track {
@@ -714,7 +700,7 @@ body {
 }
 
 .marquee-track .dot {
-  color: #ffffff;
+  color: var(--amber);
 }
 
 @keyframes marquee {
@@ -815,9 +801,9 @@ body {
   font-weight: 700;
   padding: 7px 15px;
   border-radius: 999px;
-  background: rgba(24, 20, 17, 0.8);
-  color: var(--gold-bright);
-  border: 1px solid rgba(255, 214, 96, 0.38);
+  background: rgba(255, 250, 236, 0.84);
+  color: #b86200;
+  border: 1px solid rgba(234, 140, 0, 0.36);
   flex-shrink: 0;
 }
 
@@ -829,8 +815,8 @@ body {
 
 .doc-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
 }
 
 .doc-card {
@@ -898,161 +884,154 @@ body {
 /* =========================================================================
    ACARA SHOWCASE (GAYA STICKY SPLIT ALA PPA — KIRI DIAM, KANAN BERGULIR)
    ========================================================================= */
-.acara-split {
-  display: grid;
-  grid-template-columns: minmax(300px, 0.44fr) 0.56fr;
-  gap: 28px;
-  align-items: start;
+/* =========================================================================
+   ACARA SHOWCASE (FULL-WIDTH 100% ALA PPA — TEMA TERANG KONSISTEN + LATAR STATIS)
+   Latar foto tambang cerah diam tidak ikut gulir; kiri sticky; kanan bergulir dengan kilatan kiri->kanan
+   ========================================================================= */
+.acara-ppa-section {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  overflow: clip;
+  border-top: 1px solid rgba(255, 255, 255, 0.72);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.72);
+  background-color: #f4efe4;
 }
 
-/* Kolom Kiri (Sticky mengikuti scroll sampai acara terakhir) */
+/* Lapisan latar foto tambang statis terang (sticky 100vh = diam di layar tanpa lag) */
+.acara-bg-sticky {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.acara-bg-photo {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-image:
+    linear-gradient(
+      115deg,
+      rgba(252, 248, 239, 0.74) 0%,
+      rgba(249, 243, 230, 0.60) 46%,
+      rgba(247, 240, 226, 0.68) 100%
+    ),
+    url("assets/bg-acara-mine.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.acara-split {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 45% 55%;
+  gap: 0;
+  align-items: stretch;
+  color: var(--charcoal);
+}
+
+/* Kolom Kiri (Sticky mengikuti scroll sampai item terakhir) */
 .acara-sticky-col {
   position: sticky;
-  top: 96px;
+  top: 82px;
   align-self: start;
+  z-index: 2;
 }
 
 .acara-sticky-card {
-  color: #ffffff;
-  padding: clamp(18px, 2.2vh, 24px) clamp(22px, 2.5vw, 28px);
-  max-height: calc(100vh - 114px);
+  color: var(--charcoal);
+  width: 100%;
+  padding: clamp(22px, 3.6vh, 42px) clamp(28px, 4.5vw, 68px);
+  min-height: calc(100vh - 104px);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-}
-
-.acara-sticky-top {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.acara-sticky-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: var(--gold-bright);
-  box-shadow: 0 0 12px rgba(255, 208, 0, 0.75);
-}
-
-.acara-sticky-kicker {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
-  color: rgba(255, 255, 255, 0.72);
-  font-weight: 700;
+  justify-content: center;
+  max-width: 640px;
+  margin-left: auto;
 }
 
 .acara-sticky-title {
-  margin: 0 0 10px;
-  font-size: clamp(1.65rem, 2.7vw, 2.3rem);
+  margin: 0 0 24px;
+  font-size: clamp(1.85rem, 3vw, 2.55rem);
   font-weight: 800;
   line-height: 1.08;
   letter-spacing: -0.025em;
-  color: #ffffff;
+  color: var(--charcoal);
 }
 
 .acara-sticky-title span {
   display: block;
-  background: linear-gradient(90deg, var(--gold-bright), var(--amber));
+  background: linear-gradient(90deg, #d88300, #c46400);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.acara-sticky-desc {
-  margin: 0 0 16px;
-  color: rgba(255, 255, 255, 0.76);
-  font-size: 0.86rem;
-  line-height: 1.5;
-}
-
-/* Tombol CTA ala PPA (kotak panah aksen + label kapital) */
-.acara-sticky-cta {
-  display: inline-flex;
-  align-items: center;
-  align-self: flex-start;
-  gap: 12px;
-  text-decoration: none;
-  color: #ffffff;
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  padding: 5px 16px 5px 5px;
-  border-radius: 11px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 232, 165, 0.24);
-  margin-bottom: 16px;
-  transition: background 0.28s ease, border-color 0.28s ease, transform 0.28s ease;
-}
-
-.acara-cta-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 7px;
-  background: linear-gradient(135deg, #ffe047, var(--amber));
-  color: var(--charcoal);
-  display: grid;
-  place-items: center;
-  font-size: 0.95rem;
-  font-weight: 800;
-  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.acara-sticky-cta:hover {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(255, 208, 0, 0.55);
-  transform: translateY(-2px);
-}
-
-.acara-sticky-cta:hover .acara-cta-icon {
-  transform: translateX(3px);
-}
-
-/* Pratinjau visual dinamis di bawah kolom kiri yang berganti halus saat scroll */
+/* Kotak pratinjau judul acara & narasi studi kasus bergaya Liquid Glass Terang */
 .acara-preview-box {
   display: block;
+  width: 100%;
   text-decoration: none;
-  border-radius: 16px;
+  border-radius: 22px;
   overflow: hidden;
-  border: 1px solid rgba(255, 232, 165, 0.24);
-  background: rgba(16, 13, 10, 0.72);
-  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.32);
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.86);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.78) 0%,
+    rgba(255, 251, 241, 0.62) 54%,
+    rgba(255, 246, 224, 0.74) 100%
+  );
+  backdrop-filter: blur(14px) saturate(1.18);
+  -webkit-backdrop-filter: blur(14px) saturate(1.18);
+  box-shadow:
+    0 18px 38px -10px rgba(24, 18, 12, 0.14),
+    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.94),
+    inset 0 -1.5px 2px rgba(234, 140, 0, 0.20);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.35s ease;
 }
 
 .acara-preview-box:hover {
-  transform: scale(1.02);
-  border-color: rgba(255, 208, 0, 0.62);
+  transform: scale(1.015);
+  border-color: rgba(234, 140, 0, 0.62);
+  box-shadow:
+    0 24px 46px -10px rgba(24, 18, 12, 0.18),
+    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.96);
 }
 
 .acara-preview-stage {
   position: relative;
   width: 100%;
-  height: 140px;
+  height: clamp(245px, 36vh, 325px);
   overflow: hidden;
-  background: linear-gradient(135deg, #1b1612 0%, #34281b 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 246, 222, 0.40) 100%);
 }
 
 @media (max-height: 720px) and (min-width: 861px) {
   .acara-sticky-card {
-    padding: 16px 22px;
+    padding: 18px clamp(24px, 4vw, 52px);
+    min-height: calc(100vh - 84px);
   }
   .acara-sticky-title {
-    font-size: 1.55rem;
-    margin-bottom: 8px;
-  }
-  .acara-sticky-desc {
-    font-size: 0.82rem;
-    margin-bottom: 12px;
-  }
-  .acara-sticky-cta {
-    margin-bottom: 12px;
+    font-size: 1.7rem;
+    margin-bottom: 16px;
   }
   .acara-preview-stage {
-    height: 108px;
+    height: 215px;
+  }
+  .acara-preview-fallback-title {
+    font-size: clamp(1.3rem, 2vw, 1.75rem);
+  }
+  .acara-preview-fallback.has-narrative .acara-preview-fallback-title {
+    font-size: clamp(1.15rem, 1.65vw, 1.45rem);
+  }
+  .acara-preview-narrative {
+    font-size: 0.84rem;
+    margin-top: 8px;
   }
 }
 
@@ -1086,184 +1065,229 @@ body {
 .acara-preview-fallback {
   width: 100%;
   height: 100%;
-  padding: 18px 20px;
+  padding: clamp(24px, 3vw, 36px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   text-align: left;
   background:
-    radial-gradient(circle at 86% 18%, rgba(255, 208, 0, 0.24) 0%, transparent 52%),
-    linear-gradient(135deg, rgba(24, 19, 15, 0.96) 0%, rgba(46, 35, 24, 0.92) 100%);
+    radial-gradient(circle at 88% 16%, rgba(255, 208, 0, 0.24) 0%, transparent 56%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.70) 0%, rgba(255, 248, 232, 0.52) 100%);
 }
 
 .acara-preview-fallback-num {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
-  color: var(--gold-bright);
-  margin-bottom: 6px;
+  letter-spacing: 0.16em;
+  color: #c76f00;
+  margin-bottom: 14px;
 }
 
 .acara-preview-fallback-title {
-  font-size: 1.05rem;
+  font-size: clamp(1.5rem, 2.35vw, 2.15rem);
   font-weight: 800;
-  color: #ffffff;
-  line-height: 1.3;
+  color: var(--charcoal);
+  line-height: 1.24;
+  letter-spacing: -0.02em;
+}
+
+.acara-preview-fallback.has-narrative .acara-preview-fallback-num {
+  margin-bottom: 10px;
+}
+
+.acara-preview-fallback.has-narrative .acara-preview-fallback-title {
+  font-size: clamp(1.28rem, 1.9vw, 1.72rem);
+  line-height: 1.22;
+}
+
+.acara-preview-narrative {
+  margin: 12px 0 0;
+  color: var(--text-muted);
+  font-size: clamp(0.88rem, 1.05vw, 0.98rem);
+  font-weight: 500;
+  line-height: 1.56;
+}
+
+.acara-title-accent {
+  color: #cc7100;
 }
 
 .acara-preview-bar {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 14px;
-  background: rgba(14, 11, 8, 0.84);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 11px 16px;
+  background: rgba(255, 252, 244, 0.76);
+  border-top: 1px solid rgba(26, 22, 19, 0.08);
 }
 
 #acara-preview-counter {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 700;
-  color: var(--gold-bright);
+  color: #c76f00;
   white-space: nowrap;
 }
 
 .acara-preview-progress {
   flex: 1;
-  height: 3px;
+  height: 3.5px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(26, 22, 19, 0.12);
   overflow: hidden;
 }
 
 .acara-preview-progress-fill {
   height: 100%;
-  width: 12.5%;
+  width: 11.11%;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--gold-bright), var(--amber));
   transition: width 0.42s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Kolom Kanan (Daftar Acara 01–08 bergulir vertikal ala PPA) */
-/* Memakai frosted glass halus tanpa SVG displacement map agar panel tinggi bebas glitch saat scroll */
+/* Kolom Kanan (Daftar Acara 1–8 & Studi Kasus — Liquid Glass Terang + ruang scroll bawah ala PPA) */
 .acara-scroll-list {
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  overflow: hidden;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.56) 0%,
-    rgba(255, 252, 244, 0.38) 52%,
-    rgba(255, 248, 230, 0.48) 100%
-  );
-  backdrop-filter: blur(14px) saturate(1.15);
-  -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  padding-top: clamp(16px, 4vh, 40px);
+  padding-bottom: 46vh;
+  border-left: 1px solid rgba(255, 255, 255, 0.72);
+  background: rgba(255, 252, 245, 0.56);
+  backdrop-filter: blur(12px) saturate(1.16);
+  -webkit-backdrop-filter: blur(12px) saturate(1.16);
 }
 
 .acara-row {
   position: relative;
   display: grid;
-  grid-template-columns: 44px 1fr 46px;
-  gap: 18px;
-  align-items: start;
-  padding: 28px 24px;
+  grid-template-columns: 1fr 48px;
+  gap: 20px;
+  align-items: center;
+  padding: clamp(44px, 7vh, 70px) clamp(28px, 4.5vw, 68px);
   text-decoration: none;
-  color: inherit;
-  border-radius: 22px;
+  color: var(--charcoal);
   border-bottom: 1px solid rgba(26, 22, 19, 0.10);
-  opacity: 0.56;
-  transform: translateX(0);
+  overflow: hidden;
+  opacity: 0.46;
   transition:
     opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-    background-color 0.38s ease,
-    transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.38s ease,
-    border-color 0.38s ease;
+    background-color 0.38s ease;
 }
 
-.acara-row:last-child {
-  border-bottom: none;
-}
-
-/* Garis indikator aktif emas di sisi kiri baris */
+/* Garis cahaya horizontal di sisi atas baris yang melaju dari kiri ke kanan saat aktif */
 .acara-row::before {
   content: "";
   position: absolute;
+  top: 0;
   left: 0;
-  top: 22px;
-  bottom: 22px;
-  width: 3.5px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, var(--gold-bright), var(--amber));
-  transform: scaleY(0);
-  transform-origin: center;
-  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  right: 0;
+  height: 2.5px;
+  background: linear-gradient(
+    90deg,
+    var(--amber) 0%,
+    var(--gold-bright) 58%,
+    rgba(234, 140, 0, 0.16) 100%
+  );
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 2;
 }
 
-/* State aktif saat di-scroll ke posisi fokus atau saat di-hover */
+/* Kilatan cahaya (light sweep) terang emas-putih yang menyapu dari kiri ke kanan saat aktif / hover */
+.acara-row::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 208, 0, 0.10) 24%,
+    rgba(255, 255, 255, 0.80) 46%,
+    rgba(255, 196, 36, 0.24) 64%,
+    transparent 88%
+  );
+  transform: translateX(-115%);
+  opacity: 0;
+}
+
+.acara-row > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* State aktif saat di-scroll ke posisi fokus atau saat di-hover (tema terang serasi) */
 .acara-row.is-active,
 .acara-row:hover {
   opacity: 1;
-  background: rgba(255, 255, 255, 0.62);
-  box-shadow:
-    0 14px 32px -12px rgba(20, 16, 12, 0.16),
-    inset 0 1px 1px rgba(255, 255, 255, 0.88);
-  border-bottom-color: transparent;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 208, 0, 0.16) 0%,
+    rgba(255, 255, 255, 0.66) 45%,
+    rgba(255, 252, 244, 0.32) 100%
+  );
 }
 
 .acara-row.is-active::before,
 .acara-row:hover::before {
-  transform: scaleY(1);
+  transform: scaleX(1);
 }
 
-.acara-row:hover {
-  transform: translateX(4px);
+.acara-row.is-active::after {
+  animation: ppa-row-light-sweep 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.acara-row-num {
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  padding-top: 4px;
-  transition: color 0.3s ease;
+.acara-row:hover:not(.is-active)::after {
+  animation: ppa-row-light-sweep 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.acara-row.is-active .acara-row-num,
-.acara-row:hover .acara-row-num {
-  color: var(--amber);
+@keyframes ppa-row-light-sweep {
+  0% {
+    transform: translateX(-115%);
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  82% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
 }
 
 .acara-row-content h3 {
-  margin: 0 0 10px;
-  font-size: clamp(1.12rem, 1.8vw, 1.32rem);
+  margin: 0;
+  font-size: clamp(1.38rem, 2.25vw, 1.9rem);
   font-weight: 800;
   color: var(--charcoal);
-  line-height: 1.3;
-  transition: color 0.25s ease;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  transition: color 0.25s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.acara-row-content p {
-  margin: 0;
-  color: var(--text-muted);
-  font-size: 0.92rem;
-  line-height: 1.62;
+.acara-row:hover .acara-row-content h3,
+.acara-row.is-active .acara-row-content h3 {
+  transform: translateX(4px);
 }
 
-/* Kotak ikon kanan ala PPA (berubah menyala emas saat aktif/hover) */
+/* Kotak ikon kanan ala PPA (kaca terang, menyala emas-amber saat aktif/hover) */
 .acara-row-badge {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
   display: grid;
   place-items: center;
-  background: rgba(26, 22, 19, 0.08);
+  background: rgba(255, 255, 255, 0.76);
   color: var(--charcoal);
-  border: 1px solid rgba(26, 22, 19, 0.12);
-  font-size: 1.1rem;
+  border: 1px solid rgba(26, 22, 19, 0.14);
+  font-size: 1.05rem;
   font-weight: 700;
   transition:
     background 0.32s ease,
@@ -1277,8 +1301,8 @@ body {
 .acara-row:hover .acara-row-badge {
   background: linear-gradient(135deg, #ffe047 0%, var(--gold-bright) 48%, var(--amber) 100%);
   color: var(--charcoal);
-  border-color: rgba(255, 255, 255, 0.72);
-  box-shadow: 0 8px 20px rgba(234, 140, 0, 0.32);
+  border-color: rgba(255, 255, 255, 0.80);
+  box-shadow: 0 8px 22px rgba(234, 140, 0, 0.34);
 }
 
 .acara-row:hover .acara-row-badge {
@@ -1292,25 +1316,26 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 19px;
-  background: linear-gradient(135deg, rgba(26, 21, 17, 0.94) 0%, rgba(49, 39, 29, 0.92) 100%);
+  background: linear-gradient(135deg, rgba(255, 253, 246, 0.92) 0%, rgba(255, 240, 202, 0.84) 100%);
+  border: 1px solid rgba(234, 140, 0, 0.24);
   display: grid;
   place-items: center;
   text-align: center;
   padding: 16px;
-  color: #ffffff;
-  box-shadow: inset 0 1.5px 1px rgba(255, 244, 210, 0.28);
+  color: var(--charcoal);
+  box-shadow: inset 0 1.5px 1px rgba(255, 255, 255, 0.92);
 }
 
 .acara-placeholder-graphic span {
   font-family: var(--font-mono);
   font-size: 2rem;
   font-weight: 700;
-  color: var(--gold-bright);
+  color: #c76f00;
   display: block;
 }
 
 .acara-placeholder-graphic small {
-  color: rgba(255, 255, 255, 0.74);
+  color: var(--text-muted);
   font-size: 0.78rem;
 }
 
@@ -1562,12 +1587,12 @@ body {
 .asisten-photo-wrap {
   aspect-ratio: 4 / 5;
   border-radius: 22px;
-  background: linear-gradient(135deg, rgba(26, 22, 19, 0.92), rgba(56, 46, 36, 0.88));
+  background: linear-gradient(135deg, rgba(247, 239, 224, 0.95), rgba(236, 225, 202, 0.92));
   display: grid;
   place-items: center;
   position: relative;
   overflow: hidden;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.32);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.75);
 }
 
 .asisten-photo-wrap img,
@@ -1698,11 +1723,11 @@ body {
 }
 
 /* =========================================================================
-   FOOTER & REVEAL ANIMATION
+   FOOTER & REVEAL ANIMATION (TEMA TERANG KONSISTEN)
    ========================================================================= */
 .site-footer {
   padding: 28px 0 36px;
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--charcoal);
 }
 
 .footer-inner {
@@ -1726,21 +1751,20 @@ body {
   background: transparent;
   padding: 0;
   border-radius: 0;
-  filter:
-    drop-shadow(0 0 12px rgba(255, 224, 120, 0.34))
-    drop-shadow(0 1px 3px rgba(255, 255, 255, 0.22));
+  filter: drop-shadow(0 4px 10px rgba(24, 18, 12, 0.12));
 }
 
 .footer-brand p {
   margin: 2px 0 0;
   font-size: 0.84rem;
-  color: rgba(255, 255, 255, 0.70);
+  color: var(--text-muted);
 }
 
 .footer-note {
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  color: var(--gold-bright);
+  font-weight: 700;
+  color: #b86200;
 }
 
 :where(.reveal) {
@@ -1932,7 +1956,7 @@ body {
 }
 
 .room-hero {
-  color: #ffffff;
+  color: var(--charcoal);
   padding: clamp(26px, 4.5vw, 44px);
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
@@ -1940,6 +1964,12 @@ body {
   align-items: center;
   margin-bottom: 42px;
   overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.74) 0%,
+    rgba(255, 250, 238, 0.56) 54%,
+    rgba(255, 244, 218, 0.68) 100%
+  );
 }
 
 .room-hero-tags {
@@ -1960,9 +1990,9 @@ body {
   font-size: 0.72rem;
   padding: 6px 13px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--charcoal);
+  border: 1px solid rgba(26, 22, 19, 0.14);
 }
 
 .room-hero-title {
@@ -1971,11 +2001,12 @@ body {
   font-weight: 800;
   line-height: 1.18;
   letter-spacing: -0.02em;
+  color: var(--charcoal);
 }
 
 .room-hero-desc {
   margin: 0;
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--text-muted);
   font-size: 0.98rem;
   max-width: 560px;
 }
@@ -1984,8 +2015,8 @@ body {
   border-radius: 22px;
   overflow: hidden;
   aspect-ratio: 16 / 10;
-  border: 1px solid rgba(255, 236, 178, 0.32);
-  box-shadow: 0 14px 32px rgba(10, 8, 6, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  box-shadow: 0 14px 32px rgba(24, 18, 12, 0.12);
 }
 
 .room-hero-visual img {
@@ -2059,8 +2090,8 @@ body {
   letter-spacing: 0.08em;
   padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(24, 20, 17, 0.86);
-  color: var(--gold-bright);
+  background: linear-gradient(135deg, #ffe047, var(--amber));
+  color: var(--charcoal);
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -2136,9 +2167,9 @@ body {
   .lg-panel.lg-dark {
     background: linear-gradient(
       135deg,
-      rgba(24, 20, 17, 0.90) 0%,
-      rgba(38, 30, 22, 0.84) 52%,
-      rgba(62, 43, 18, 0.88) 100%
+      rgba(255, 255, 255, 0.78) 0%,
+      rgba(255, 250, 238, 0.66) 52%,
+      rgba(255, 244, 218, 0.74) 100%
     );
   }
   .hero-banner,
@@ -2158,16 +2189,70 @@ body {
   }
   .acara-split {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 0;
   }
   .acara-sticky-col {
-    position: static;
+    position: sticky;
+    top: 66px;
+    z-index: 4;
+    background: linear-gradient(
+      180deg,
+      rgba(252, 248, 239, 0.94) 0%,
+      rgba(250, 245, 234, 0.88) 88%,
+      rgba(250, 245, 234, 0) 100%
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .acara-sticky-card {
+    min-height: 0;
+    max-height: none;
+    max-width: none;
+    margin-left: 0;
+    padding: 16px 18px 18px;
+  }
+  .acara-sticky-title {
+    font-size: 1.35rem;
+    margin-bottom: 12px;
+  }
+  .acara-sticky-title span {
+    display: inline;
+  }
+  .acara-preview-stage {
+    height: 162px;
+  }
+  .acara-preview-fallback {
+    padding: 16px 18px;
+  }
+  .acara-preview-fallback-num {
+    font-size: 0.7rem;
+    margin-bottom: 6px;
+  }
+  .acara-preview-fallback-title {
+    font-size: clamp(1.12rem, 4.4vw, 1.38rem);
+  }
+  .acara-preview-fallback.has-narrative .acara-preview-fallback-title {
+    font-size: 1.05rem;
+  }
+  .acara-preview-narrative {
+    font-size: 0.78rem;
+    margin-top: 6px;
+    line-height: 1.45;
+  }
+  .acara-scroll-list {
+    padding-top: 0;
+    padding-bottom: 36vh;
+    border-left: none;
+    border-top: 1px solid rgba(26, 22, 19, 0.10);
   }
   .acara-row {
-    opacity: 1;
-    grid-template-columns: 34px 1fr 40px;
+    opacity: 0.56;
+    grid-template-columns: 1fr 40px;
     gap: 12px;
-    padding: 20px 16px;
+    padding: 24px 20px;
+  }
+  .acara-row-content h3 {
+    font-size: 1.25rem;
   }
 }
 

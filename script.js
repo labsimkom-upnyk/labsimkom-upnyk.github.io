@@ -111,76 +111,155 @@ function getInitials(name) {
     .join("");
 }
 
+function escapeHtml(text) {
+  return String(text || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function formatAcaraTitle(judul, sorotan) {
+  const safeTitle = String(judul || "");
+  if (sorotan) {
+    const idx = safeTitle.toLowerCase().indexOf(String(sorotan).toLowerCase());
+    if (idx !== -1) {
+      const before = safeTitle.slice(0, idx);
+      const match = safeTitle.slice(idx, idx + sorotan.length);
+      const after = safeTitle.slice(idx + sorotan.length);
+      return `${escapeHtml(before)}<span class="acara-title-accent">${escapeHtml(match)}</span>${escapeHtml(after)}`;
+    }
+  }
+
+  // Fallback otomatis: beri warna aksen pada 2 kata terakhir bila sorotan tidak diisi
+  const words = safeTitle.trim().split(/\s+/);
+  if (words.length <= 2) {
+    return `<span class="acara-title-accent">${escapeHtml(safeTitle)}</span>`;
+  }
+  const lead = words.slice(0, -2).join(" ");
+  const accent = words.slice(-2).join(" ");
+  return `${escapeHtml(lead)} <span class="acara-title-accent">${escapeHtml(accent)}</span>`;
+}
+
+function getShowcaseItems() {
+  if (typeof ACARA_LIST === "undefined") return [];
+  const items = ACARA_LIST.map((item, index) => {
+    const urutan = Number.parseInt(item.nomor, 10) || index + 1;
+    return {
+      nomor: item.nomor,
+      labelKanan: `Acara ${urutan}`,
+      eyebrow: `ACARA ${urutan}`,
+      judul: item.judul,
+      sorotan: item.sorotan,
+      narasi: "",
+      foto: item.foto || "",
+      link: `acara.html?id=${encodeURIComponent(item.nomor)}`,
+      external: false
+    };
+  });
+
+  if (typeof STUDI_KASUS_ITEM !== "undefined" && STUDI_KASUS_ITEM) {
+    items.push({
+      nomor: STUDI_KASUS_ITEM.nomor || String(items.length + 1).padStart(2, "0"),
+      labelKanan: STUDI_KASUS_ITEM.labelKanan || "Studi Kasus",
+      eyebrow: STUDI_KASUS_ITEM.eyebrow || "STUDI KASUS",
+      judul: STUDI_KASUS_ITEM.judul || "Studi Kasus Perencanaan Tambang",
+      sorotan: STUDI_KASUS_ITEM.sorotan || "Perencanaan Tambang",
+      narasi: STUDI_KASUS_ITEM.narasi || "",
+      foto: STUDI_KASUS_ITEM.foto || "",
+      link: STUDI_KASUS_ITEM.link || "#",
+      external: Boolean(STUDI_KASUS_ITEM.external)
+    });
+  }
+
+  return items;
+}
+
 function renderAcaraList() {
   const container = document.getElementById("acara-list");
   const previewStage = document.getElementById("acara-preview-stage");
-  if (!container || typeof ACARA_LIST === "undefined") return;
+  const showcaseItems = getShowcaseItems();
+  if (!container || !showcaseItems.length) return;
 
-  // 1. Render daftar vertikal acara 01–08 pada kolom kanan
-  container.innerHTML = ACARA_LIST.map((item, index) => {
-    const roomUrl = `acara.html?id=${encodeURIComponent(item.nomor)}`;
-    const activeClass = index === 0 ? "is-active" : "";
-
-    return `
-      <a href="${roomUrl}" class="acara-row ${activeClass}" data-acara-index="${index}">
-        <span class="acara-row-num">${item.nomor}</span>
-        <div class="acara-row-content">
-          <h3>${item.judul}</h3>
-          <p>${item.deskripsi}</p>
-        </div>
-        <span class="acara-row-badge" aria-hidden="true">&rarr;</span>
-      </a>
-    `;
-  }).join("");
-
-  // 2. Render seluruh slide pratinjau pada kolom kiri sticky (cross-fade halus saat scroll)
-  if (previewStage) {
-    previewStage.innerHTML = ACARA_LIST.map((item, index) => {
+  // 1. Render daftar vertikal urutan acara (Acara 1–8 + Studi Kasus) pada kolom kanan
+  container.innerHTML = showcaseItems
+    .map((item, index) => {
       const activeClass = index === 0 ? "is-active" : "";
-      const inner = item.foto
-        ? `<img src="${item.foto}" alt="Acara ${item.nomor}: ${item.judul}" />`
-        : `<div class="acara-preview-fallback">
-             <span class="acara-preview-fallback-num">ACARA ${item.nomor}</span>
-             <strong class="acara-preview-fallback-title">${item.judul}</strong>
-           </div>`;
-      return `<div class="acara-preview-slide ${activeClass}" data-preview-index="${index}">${inner}</div>`;
-    }).join("");
+      const extAttrs = item.external ? ' target="_blank" rel="noopener noreferrer"' : "";
+
+      return `
+        <a href="${item.link}"${extAttrs} class="acara-row ${activeClass}" data-acara-index="${index}">
+          <div class="acara-row-content">
+            <h3>${escapeHtml(item.labelKanan)}</h3>
+          </div>
+          <span class="acara-row-badge" aria-hidden="true">&rarr;</span>
+        </a>
+      `;
+    })
+    .join("");
+
+  // 2. Render judul acara dwikromatik (atau narasi pendek Studi Kasus) pada kolom kiri sticky
+  if (previewStage) {
+    previewStage.innerHTML = showcaseItems
+      .map((item, index) => {
+        const activeClass = index === 0 ? "is-active" : "";
+        const judulFormatted = formatAcaraTitle(item.judul, item.sorotan);
+        const hasNarrativeClass = item.narasi ? " has-narrative" : "";
+        const narrativeHtml = item.narasi
+          ? `<p class="acara-preview-narrative">${escapeHtml(item.narasi)}</p>`
+          : "";
+        const inner = item.foto
+          ? `<img src="${item.foto}" alt="${escapeHtml(item.labelKanan)}: ${escapeHtml(item.judul)}" />`
+          : `<div class="acara-preview-fallback${hasNarrativeClass}">
+               <span class="acara-preview-fallback-num">${escapeHtml(item.eyebrow)}</span>
+               <strong class="acara-preview-fallback-title">${judulFormatted}</strong>
+               ${narrativeHtml}
+             </div>`;
+        return `<div class="acara-preview-slide ${activeClass}" data-preview-index="${index}">${inner}</div>`;
+      })
+      .join("");
   }
 
-  initAcaraStickySync();
+  initAcaraStickySync(showcaseItems);
 }
 
 /**
  * Sinkronisasi scroll & hover bergaya PT Putra Perkasa Abadi:
  * Saat kolom kanan digulir, baris yang berada di titik fokus otomatis aktif
- * dan pratinjau + tombol CTA pada kolom kiri ikut berpindah mulus.
+ * dan pratinjau judul/narasi pada kolom kiri ikut berpindah mulus.
  */
-function initAcaraStickySync() {
+function initAcaraStickySync(showcaseItems) {
   const rows = Array.from(document.querySelectorAll(".acara-row"));
-  if (!rows.length || typeof ACARA_LIST === "undefined") return;
+  if (!rows.length || !showcaseItems || !showcaseItems.length) return;
 
   const slides = Array.from(document.querySelectorAll(".acara-preview-slide"));
-  const ctaLink = document.getElementById("acara-active-cta");
-  const ctaText = document.getElementById("acara-active-cta-text");
   const previewLink = document.getElementById("acara-preview-link");
   const counterEl = document.getElementById("acara-preview-counter");
   const progressFill = document.getElementById("acara-preview-progress-fill");
-  const total = ACARA_LIST.length;
+  const total = showcaseItems.length;
   let activeIndex = 0;
 
   function setActiveAcara(index) {
     if (index < 0 || index >= total) return;
     activeIndex = index;
-    const acara = ACARA_LIST[index];
-    const roomUrl = `acara.html?id=${encodeURIComponent(acara.nomor)}`;
+    const current = showcaseItems[index];
 
     rows.forEach((row, i) => row.classList.toggle("is-active", i === index));
     slides.forEach((slide, i) => slide.classList.toggle("is-active", i === index));
 
-    if (ctaLink) ctaLink.setAttribute("href", roomUrl);
-    if (ctaText) ctaText.textContent = `MASUK ACARA ${acara.nomor}`;
-    if (previewLink) previewLink.setAttribute("href", roomUrl);
-    if (counterEl) counterEl.textContent = `${acara.nomor} / ${String(total).padStart(2, "0")}`;
+    if (previewLink) {
+      previewLink.setAttribute("href", current.link);
+      if (current.external) {
+        previewLink.setAttribute("target", "_blank");
+        previewLink.setAttribute("rel", "noopener noreferrer");
+      } else {
+        previewLink.removeAttribute("target");
+        previewLink.removeAttribute("rel");
+      }
+    }
+    if (counterEl) {
+      counterEl.textContent = `${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
+    }
     if (progressFill) progressFill.style.width = `${((index + 1) / total) * 100}%`;
   }
 
@@ -190,11 +269,11 @@ function initAcaraStickySync() {
     row.addEventListener("focus", () => setActiveAcara(idx));
   });
 
-  // Hitung baris yang paling dekat dengan garis fokus (~38% dari atas layar) saat halaman digulir
+  // Hitung baris yang paling dekat dengan garis fokus saat halaman digulir
   let rafPending = false;
   function syncOnScroll() {
     rafPending = false;
-    const focusY = window.innerHeight * 0.38;
+    const focusY = window.innerWidth <= 860 ? window.innerHeight * 0.56 : window.innerHeight * 0.45;
     let closestIdx = activeIndex;
     let closestDist = Infinity;
 
@@ -378,14 +457,19 @@ function renderAcaraRoom() {
            </a>`
         : `<div class="room-nav-spacer"></div>`;
 
+      const studiKasusLink =
+        typeof STUDI_KASUS_ITEM !== "undefined" && STUDI_KASUS_ITEM.link
+          ? STUDI_KASUS_ITEM.link
+          : "index.html?from=acara#acara-showcase";
+
       const nextHtml = nextAcara
         ? `<a href="acara.html?id=${encodeURIComponent(nextAcara.nomor)}" class="room-nav-card room-nav-next lg-panel">
              <span class="room-nav-dir">Acara Berikutnya &rarr;</span>
              <strong>Acara ${nextAcara.nomor}: ${nextAcara.judul}</strong>
            </a>`
-        : `<a href="index.html?from=acara#buku-panduan" class="room-nav-card room-nav-next lg-panel">
+        : `<a href="${studiKasusLink}" target="_blank" rel="noopener noreferrer" class="room-nav-card room-nav-next lg-panel">
              <span class="room-nav-dir">Lanjut ke Tahap Akhir &rarr;</span>
-             <strong>Studi Kasus &amp; Buku Panduan</strong>
+             <strong>Studi Kasus Perencanaan Tambang</strong>
            </a>`;
 
       footerNavEl.innerHTML = `${prevHtml}${nextHtml}`;

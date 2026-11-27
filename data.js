@@ -32,6 +32,7 @@ const ACARA_LIST = [
     romawi: "I",
     password: "1",
     judul: "Pengenalan Perangkat Lunak & Basis Data Pemboran",
+    sorotan: "Basis Data",
     deskripsi:
       "Impor data lubang bor (collar, survey, assay, lithology), validasi basis data, dan pengenalan antarmuka perangkat lunak perencanaan tambang.",
     foto: "", // Contoh jika sudah ada foto: "assets/acara-01.jpg"
@@ -78,6 +79,7 @@ const ACARA_LIST = [
     romawi: "II",
     password: "2",
     judul: "Pemodelan Geologi & Sumberdaya (Block Model)",
+    sorotan: "Block Model",
     deskripsi:
       "Pembuatan model blok 3D, komposit data kadar, serta estimasi distribusi kadar dan tonase endapan.",
     foto: "",
@@ -124,6 +126,7 @@ const ACARA_LIST = [
     romawi: "III",
     password: "3",
     judul: "Penentuan Cut-Off Grade & Stripping Ratio",
+    sorotan: "Cut-Off Grade",
     deskripsi:
       "Analisis ekonomi awal untuk menentukan batas kadar layak tambang (COG) dan nisbah kupas (SR).",
     foto: "",
@@ -170,6 +173,7 @@ const ACARA_LIST = [
     romawi: "IV",
     password: "4",
     judul: "Optimasi Pit (Ultimate Pit Limit)",
+    sorotan: "Optimasi Pit",
     deskripsi:
       "Penentuan batas pit akhir optimal secara teknis dan ekonomis menggunakan parameter lereng dan harga komoditas.",
     foto: "",
@@ -216,6 +220,7 @@ const ACARA_LIST = [
     romawi: "V",
     password: "5",
     judul: "Perancangan Desain Pit & Jalan Tambang",
+    sorotan: "Desain Pit",
     deskripsi:
       "Pembuatan geometri jenjang (bench), ramp, dan jalan angkut tambang terbuka sesuai standar keselamatan.",
     foto: "",
@@ -262,6 +267,7 @@ const ACARA_LIST = [
     romawi: "VI",
     password: "6",
     judul: "Perancangan Disposal (Waste Dump)",
+    sorotan: "Waste Dump",
     deskripsi:
       "Desain area penimbunan batuan penutup (overburden) dengan mempertimbangkan kapasitas dan kestabilan lereng.",
     foto: "",
@@ -308,6 +314,7 @@ const ACARA_LIST = [
     romawi: "VII",
     password: "7",
     judul: "Penjadwalan Produksi Tambang (Mine Scheduling)",
+    sorotan: "Produksi Tambang",
     deskripsi:
       "Penyusunan urutan penambangan (pushback) jangka pendek dan jangka panjang untuk memenuhi target produksi.",
     foto: "",
@@ -354,6 +361,7 @@ const ACARA_LIST = [
     romawi: "VIII",
     password: "8",
     judul: "Analisis Kebutuhan Alat & Evaluasi Ekonomi",
+    sorotan: "Evaluasi Ekonomi",
     deskripsi:
       "Perhitungan produktivitas serta jumlah alat gali-muat dan angkut, dilanjutkan analisis kelayakan biaya.",
     foto: "",
@@ -396,6 +404,19 @@ const ACARA_LIST = [
       "Nilai match factor ideal mendekati 1; jelaskan alasan teknis jika terjadi waktu tunggu pada excavator atau truck."
   }
 ];
+
+// ITEM STUDI KASUS (MASUK KE URUTAN TERAKHIR DAFTAR ACARA DI BERANDA)
+const STUDI_KASUS_ITEM = {
+  nomor: "09",
+  labelKanan: "Studi Kasus",
+  eyebrow: "STUDI KASUS",
+  judul: "Studi Kasus Perencanaan Tambang",
+  sorotan: "Perencanaan Tambang",
+  narasi:
+    "Proyek akhir terintegrasi yang menggabungkan pemodelan blok cadangan, perancangan desain pit akhir dan disposal, hingga penjadwalan produksi tambang.",
+  link: "https://drive.google.com/drive/folders/1CHvD43W4ufRIKo8if_z380y1b6Oiq6qE",
+  external: true
+};
 
 // DAFTAR TIM ASISTEN LABORATORIUM (PLACEHOLDER)
 // Nomor WA diawali 62 (tanpa tanda + atau 0 di depan), contoh: "6281234567890"
